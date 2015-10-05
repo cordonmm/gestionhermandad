@@ -7,7 +7,8 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"barryvdh/laravel-ide-helper": "1.11.x-dev",
-	  	"zizaco/confide": "~4.3@dev"
+	  	"zizaco/confide": "~4.3@dev",
+	  	"zizaco/entrust": "1.2.*@dev"
 	},
 	"autoload": {
 		"classmap": [

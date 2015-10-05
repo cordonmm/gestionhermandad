@@ -10,8 +10,15 @@ class RolesTableSeeder extends Seeder {
         $adminRole->name = 'admin';
         $adminRole->save();
 
-        $user = User::where('username','=','admin')->first();
-        $user->attachRole( $adminRole );
+        $userRole = new Role;
+        $userRole->name = 'user';
+        $userRole->save();
+
+        $user1 = User::where('username','=','admin')->first();
+        $user1->attachRole( $adminRole );
+
+        $user2 = User::where('username','=','hermano1')->first();
+        $user2->attachRole( $userRole );
     }
 
 }

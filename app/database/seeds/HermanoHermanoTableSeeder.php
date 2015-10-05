@@ -7,7 +7,7 @@ class HermanoHermanoTableSeeder extends Seeder
     {
         DB::table('hermano_hermano')->delete();
 
-        $hermano1 = Hermanos::first()->id;
+        $hermano1 = Hermano::first()->id;
         $hermano2 = $hermano1 + 1;
 
         DB::table('hermano_hermano')->insert(array(

@@ -7,7 +7,7 @@ class PapeletasTableSeeder extends Seeder
     {
         DB::table('papeletas')->delete();
 
-        $hermano_id = Hermanos::first()->id;
+        $hermano_id = Hermano::first()->id;
         $tipo_id = TiposPapeleta::first()->id;
 
         DB::table('papeletas')->insert(array(

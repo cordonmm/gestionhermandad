@@ -1,16 +1,16 @@
 <?php
 
-class RecibosTableSeeder extends Seeder
+class ReservasInsigniasTableSeeder extends Seeder
 {
 
     public function run()
     {
-        DB::table('recibos')->delete();
+        DB::table('reservas_insignia')->delete();
 
-        $hermano_id = Hermanos::first()->id;
-        $insignia_id = Insignias::first()->id;
+        $hermano_id = Hermano::first()->id;
+        $insignia_id = Insignia::first()->id;
 
-        DB::table('recibos')->insert(array(
+        DB::table('reservas_insignia')->insert(array(
                 array(
                     'hermano_id' => $hermano_id,
                     'insignia_id' => $insignia_id,

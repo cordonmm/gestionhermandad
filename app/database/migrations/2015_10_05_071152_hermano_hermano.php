@@ -20,7 +20,7 @@ class HermanoHermano extends Migration {
 			$table->string('parentesco');
 			$table->foreign('hermano1_id')->references('id')->on('hermanos');
 			$table->foreign('hermano2_id')->references('id')->on('hermanos');
-		}
+		});
 	}
 
 	/**

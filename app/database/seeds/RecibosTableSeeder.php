@@ -7,7 +7,7 @@ class RecibosTableSeeder extends Seeder
     {
         DB::table('recibos')->delete();
 
-        $hermano_id = Hermanos::first()->id;
+        $hermano_id = Hermano::first()->id;
 
         DB::table('recibos')->insert(array(
                 array(
