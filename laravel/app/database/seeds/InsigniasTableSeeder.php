@@ -1,6 +1,7 @@
 <?php
 
-class InsigniasTableSeeder extends Seeder {
+class InsigniasTableSeeder extends Seeder
+{
 
     public function run()
     {
@@ -8,16 +9,17 @@ class InsigniasTableSeeder extends Seeder {
 
         $paso_id = Paso::first()->id;
 
-        DB::table('insignias')->insert( array(
+        DB::table('insignias')->insert(array(
                 array(
-                    'paso_id'       => $paso_id,
-                    'descripcion'        => 'CRUZ DE GUÍA',
-                    'cantidad'     => '2',
+                    'paso_id' => $paso_id,
+                    'descripcion' => 'CRUZ DE GUÍA',
+                    'cantidad' => '1',
                 ),
                 array(
-                    'paso_id'       => $paso_id,
-                    'descripcion'        => 'FAROL DE CRUZ DE GUÍA',
-                    'cantidad'     => '2',
+                    'paso_id' => ($paso_id + 1),
+                    'descripcion' => 'BANDERA AZUL',
+                    'cantidad' => '2',
                 ))
         );
     }
+}
