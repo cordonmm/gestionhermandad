@@ -1,10 +1,1 @@
-/bootstrap/compiled.php
-/vendor
-/.idea
-composer.phar
-composer.lock
-.env.*.php
-.env.php
-.DS_Store
-Thumbs.db
-
+# Created by .ignore support plugin (hsz.mobi)
