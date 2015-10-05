@@ -28,7 +28,7 @@ class HermanosTableSeeder extends Seeder {
 
                 ),
                 array(
-                    'user_id'       => $user_id,
+                    'user_id'       => ($user_id + 1),
                     'nombre'        => 'José',
                     'apellidos'     => 'Fernández Bueno',
                     'fecha_nacimiento'     => '1991/06/15',

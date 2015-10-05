@@ -12,11 +12,11 @@ class InsigniasTableSeeder extends Seeder {
                 array(
                     'paso_id'       => $paso_id,
                     'descripcion'        => 'CRUZ DE GUÍA',
-                    'cantidad'     => '2',
+                    'cantidad'     => '1',
                 ),
                 array(
-                    'paso_id'       => $paso_id,
-                    'descripcion'        => 'FAROL DE CRUZ DE GUÍA',
+                    'paso_id'       => ($paso_id + 1),
+                    'descripcion'        => 'BANDERA AZUL',
                     'cantidad'     => '2',
                 ))
         );

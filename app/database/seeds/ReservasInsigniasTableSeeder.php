@@ -8,19 +8,20 @@ class RecibosTableSeeder extends Seeder
         DB::table('recibos')->delete();
 
         $hermano_id = Hermanos::first()->id;
+        $insignia_id = Insignias::first()->id;
 
         DB::table('recibos')->insert(array(
                 array(
                     'hermano_id' => $hermano_id,
-                    'cocepto' => 'Año 2015',
-                    'fecha_cobro' => '2015/06/12',
-                    'total' => 45.50,
+                    'insignia_id' => $insignia_id,
+                    'fecha_solicitud' => '2015/02/12',
+                    'estado' => 'solicitada',
                 ),
                 array(
                     'hermano_id' => ($hermano_id + 1),
-                    'cocepto' => 'Año 2014',
-                    'fecha_cobro' => '2015/01/21',
-                    'total' => 46.50,
+                    'insignia_id' => $insignia_id,
+                    'fecha_solicitud' => '2015/02/20',
+                    'estado' => 'solicitada',
                 ))
         );
     }
