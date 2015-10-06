@@ -19,7 +19,7 @@ class ReservasInsigniasTableSeeder extends Seeder
                 ),
                 array(
                     'hermano_id' => ($hermano_id + 1),
-                    'insignia_id' => $insignia_id,
+                    'insignia_id' => ($insignia_id + 1),
                     'fecha_solicitud' => '2015/02/20',
                     'estado' => 'solicitada',
                 ))

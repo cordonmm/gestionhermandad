@@ -28,6 +28,10 @@ class User extends Eloquent implements ConfideUserInterface {
 	 */
 	protected $hidden = array('password', 'remember_token');
 
+	public function hermano()
+	{
+		return $this->hasOne('Hermano');
+	}
 }
 
 
