@@ -99,7 +99,7 @@
 
                     <!-- Dropdown menu -->
                     <ul class="dropdown-menu">
-                        <li><a href="login.html"><i class="fa fa-sign-out"></i> Logout</a></li>
+                        <li><a href="{{ URL::to('users/logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
                     </ul>
                 </li>
 

@@ -1,4 +1,10 @@
 <?php
+Route::model('hermano', 'Hermano');
+
+
+
+Route::pattern('hermano', '[0-9]+');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -10,43 +16,42 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
+    Route::get('/', function () {
+        return View::make('site/welcome');
+    });
 
-Route::get('/', function()
-{
-	return View::make('site/welcome');
-});
+    Route::get('inicio', function () {
+        return View::make('site/welcome');
+    });
+    Route::get('misdatos', function () {
+        return View::make('site/misdatos');
+    });
+    Route::get('misrecibos', function () {
+        return View::make('site/misrecibos');
+    });
+    Route::get('papeleta', function () {
+        return View::make('site/papeleta');
+    });
+    Route::get('listado-hermanos', function () {
+        return View::make('site/admin/listado-hermanos');
+    });
 
-Route::get('inicio', function()
-{
-    return View::make('site/welcome');
+    Route::get('hermanos/{hermano}/ficha','AdminHermanosController@getFicha');
+    //
 });
-Route::get('misdatos', function()
-{
-    return View::make('site/misdatos');
+Route::get('/', function () {
+    return View::make('site/hello');
 });
-Route::get('misrecibos', function()
-{
-    return View::make('site/misrecibos');
-});
-Route::get('papeleta', function()
-{
-    return View::make('site/papeleta');
-});
-Route::get('listado-hermanos', function()
-{
-    return View::make('site/admin/listado-hermanos');
-});
-//
-
-// Confide routes
-Route::get('users/create', 'UsersController@create');
-Route::post('users', 'UsersController@store');
-Route::get('users/login', 'UsersController@login');
-Route::post('users/login', 'UsersController@doLogin');
-Route::get('users/confirm/{code}', 'UsersController@confirm');
-Route::get('users/forgot_password', 'UsersController@forgotPassword');
-Route::post('users/forgot_password', 'UsersController@doForgotPassword');
-Route::get('users/reset_password/{token}', 'UsersController@resetPassword');
-Route::post('users/reset_password', 'UsersController@doResetPassword');
-Route::get('users/logout', 'UsersController@logout');
-//
+    // Confide routes
+    Route::get('users/create', 'UsersController@create');
+    Route::post('users', 'UsersController@store');
+    Route::get('users/login', 'UsersController@login');
+    Route::post('users/login', 'UsersController@doLogin');
+    Route::get('users/confirm/{code}', 'UsersController@confirm');
+    Route::get('users/forgot_password', 'UsersController@forgotPassword');
+    Route::post('users/forgot_password', 'UsersController@doForgotPassword');
+    Route::get('users/reset_password/{token}', 'UsersController@resetPassword');
+    Route::post('users/reset_password', 'UsersController@doResetPassword');
+    Route::get('users/logout', 'UsersController@logout');
+    //
