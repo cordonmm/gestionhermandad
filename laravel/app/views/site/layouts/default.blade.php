@@ -53,7 +53,7 @@
     @section('styles')
         @show
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ asset('template/img/favicon/favicon.png')}}">
+    <link rel="shortcut icon" href="{{ asset('template/img/favicon/favicon.ico')}}">
 </head>
 
 <body>
@@ -67,7 +67,7 @@
                 <span>Menu</span>
             </button>
             <!-- Site name for smallar screens -->
-            <a href="index.html" class="navbar-brand hidden-lg" style="color: #D31B1B;"><b>Museo</b></a>
+            <a href="#" class="navbar-brand hidden-lg" style="color: #D31B1B;"><b>Museo</b></a>
         </div>
 
 
@@ -166,11 +166,16 @@
         <!-- If the main navigation has sub navigation, then add the class "has_sub" to "li" of main navigation. -->
         <ul id="nav">
             <!-- Main menu with font awesome icon -->
-            <li><a href="{{URL::to('inicio')}}"><i class="fa fa-home"></i> Inicio</a></li>
-            <li><a href="{{URL::to('misdatos')}}"><i class="fa fa-file-o"></i> Mis datos</a></li>
-            <li><a href="{{URL::to('misrecibos')}}"><i class="fa fa-table"></i> Mis recibos</a></li>
-            <li><a href="{{URL::to('papeleta')}}"><i class="fa fa-tasks"></i> Papeleta de Sitio</a></li>
+            <li><a href="{{URL::to('gestionhdad/inicio')}}"><i class="fa fa-home"></i> Inicio</a></li>
 
+            @if(Auth::check())
+
+                @if(Auth::user()->hasRole('user'))
+                    <li><a href="{{URL::to('gestionhdad/misdatos')}}"><i class="fa fa-file-o"></i> Mis datos</a></li>
+                    <li><a href="{{URL::to('gestionhdad/misrecibos')}}"><i class="fa fa-table"></i> Mis recibos</a></li>
+                    <li><a href="{{URL::to('gestionhdad/papeleta')}}"><i class="fa fa-tasks"></i> Papeleta de Sitio</a></li>
+                @endif
+            @endif
         </ul>
     </div>
 
