@@ -81,7 +81,7 @@ class Hermano extends Eloquent {
 
     public function user()
     {
-        return $this->hasOne('User');
+        return $this->hasOne('User', 'id', 'user_id');
     }
 
     public function recibos()
