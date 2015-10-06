@@ -117,19 +117,19 @@
 
 
 .recent-content .btn{
-	font-size: 10px !important;
+	font-size: 12px !important;
 	margin-top: 5px;
 }
 
 .recent-meta{
-	font-size: 10px;
+	font-size: 12px;
 	color: #999;
 }
 
 .recent {
 	list-style-type: none;
 	margin: 0px;
-	font-size: 11px;
+	font-size: 13px;
 	line-height: 16px;
 }
 

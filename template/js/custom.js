@@ -273,7 +273,7 @@ $(function(){
 
 });
 
-/* jQuery Notification */
+/* jQuery Notification
 
 $(document).ready(function(){
 
@@ -312,7 +312,7 @@ $(document).ready(function() {
   });
 
 });
-
+ */
 
 /* Date picker */
 
