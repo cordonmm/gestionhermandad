@@ -32,6 +32,10 @@ Route::get('papeleta', function()
 {
     return View::make('site/papeleta');
 });
+Route::get('listado-hermanos', function()
+{
+    return View::make('site/admin/listado-hermanos');
+});
 //
 
 // Confide routes
