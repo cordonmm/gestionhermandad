@@ -67,10 +67,10 @@ Route::filter('auth.basic', function()
 
 Route::filter('guest', function()
 {
-	if (Auth::check()) return Redirect::to('/users/login');
+	if (Auth::check()) return Redirect::to('/');
 });
 
-Entrust::routeNeedsRole( '/gestionhdad', array('admin','user'), Redirect::to('users/login') );
+Entrust::routeNeedsRole( 'gestionhdad*', array('admin','user'), Redirect::to('users/login'),false );
 
 
 /*
