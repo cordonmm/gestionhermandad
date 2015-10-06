@@ -38,6 +38,7 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
     });
 
     Route::get('hermanos/{hermano}/ficha','AdminHermanosController@getFicha');
+    Route::post('hermanos/{hermano}/editar','AdminHermanosController@hermanoEdit');
     //
 });
 Route::get('/', function () {
