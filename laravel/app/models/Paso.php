@@ -2,15 +2,16 @@
 
 class Paso extends Eloquent {
 
-    /**
-     * Devuelve la descripcion del Paso
-     *
-     * @return string
-     */
+    public $timestamps = false;
 
     public function descripcion()
     {
         return $this->descripcion;
+    }
+
+    public function insignias()
+    {
+        return $this->hasMany('Insignia', 'paso_id');
     }
 
 }
