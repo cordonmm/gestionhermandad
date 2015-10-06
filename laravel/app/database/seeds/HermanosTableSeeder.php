@@ -11,6 +11,7 @@ class HermanosTableSeeder extends Seeder {
         DB::table('hermanos')->insert( array(
                 array(
                     'user_id'       => $user_id,
+                    'num_hermano'        => 12545,
                     'nombre'        => 'Manuel',
                     'apellidos'     => 'Cordón Pérez',
                     'fecha_nacimiento'     => '1990/02/15',
@@ -29,6 +30,7 @@ class HermanosTableSeeder extends Seeder {
                 ),
                 array(
                     'user_id'       => ($user_id + 1),
+                    'num_hermano'        => 12546,
                     'nombre'        => 'José',
                     'apellidos'     => 'Fernández Bueno',
                     'fecha_nacimiento'     => '1991/06/15',

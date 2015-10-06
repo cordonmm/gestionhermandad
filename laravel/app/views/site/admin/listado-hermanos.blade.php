@@ -8,7 +8,7 @@
 
                     <div class="widget">
                         <div class="widget-head">
-                            <div class="pull-left">Mis recibos</div>
+                            <div class="pull-left">Listado de hermanos</div>
                             <div class="widget-icons pull-right">
                                 <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
                             </div>
@@ -24,39 +24,44 @@
                                         <table cellpadding="0" cellspacing="0" border="0" id="data-table-1" width="100%">
                                             <thead>
                                             <tr>
-                                                <th>Nº</th>
-                                                <th>Descripción</th>
-                                                <th>Fecha emisión</th>
-                                                <th>Total</th>
-                                                <th>Estado</th>
+                                                <th>Nombre</th>
+                                                <th>Apellidos</th>
+                                                <th>Fecha nacimiento</th>
+                                                <th>Fecha alta</th>
+                                                <th>DNI</th>
+                                                <th>Pablación</th>
+                                                <th>Teléfono fijo</th>
+                                                <th>Teléfono Móvil</th>
                                                 <th>Acciones</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Agosto 2015</td>
-                                                <td>01/08/2015</td>
-                                                <td>45,50</td>
-                                                <td>Pagado</td>
-                                                <td><button disabled="" type="button" class="btn btn-sm btn-danger">Pagar</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Septiembre 2015</td>
-                                                <td>01/09/2015</td>
-                                                <td>45,50</td>
-                                                <td>Pendiente</td>
-                                                <td><button type="button" class="btn btn-sm btn-danger">Pagar</button></td>
-                                            </tr>
+
+                                            {{--*/ $hermanos = Hermano::orderby('id','desc')->get() /*--}}
+                                            @foreach($hermanos as $hermano)
+                                                <tr>
+                                                    <td>{{$hermano->nombre}}</td>
+                                                    <td>{{$hermano->apellidos}}</td>
+                                                    <td>{{date('d/m/Y', strtotime($hermano->fecha_nacimiento))}}</td>
+                                                    <td>{{date('d/m/Y', strtotime($hermano->fecha_alta))}}</td>
+                                                    <td>{{$hermano->dni}}</td>
+                                                    <td>{{$hermano->poblacion}}</td>
+                                                    <td>{{$hermano->tlf_fijo}}</td>
+                                                    <td>{{$hermano->tlf_movil}}</td>
+                                                    <td><a href="{{URL::to('gestionhdad/hermanos/'.$hermano->id.'/ficha/')}}"><button type="button" class="btn btn-sm btn-danger">Editar</button></a></td>
+                                                </tr>
+                                            @endforeach
                                             </tbody>
                                             <tfoot>
                                             <tr>
-                                                <th>Nº</th>
-                                                <th>Descripción</th>
-                                                <th>Fecha emisión</th>
-                                                <th>Total</th>
-                                                <th>Estado</th>
+                                                <th>Nombre</th>
+                                                <th>Apellidos</th>
+                                                <th>Fecha nacimiento</th>
+                                                <th>Fecha alta</th>
+                                                <th>DNI</th>
+                                                <th>Pablación</th>
+                                                <th>Teléfono fijo</th>
+                                                <th>Teléfono Móvil</th>
                                                 <th>Acciones</th>
                                             </tr>
                                             </tfoot>
@@ -69,7 +74,6 @@
 
                         </div>
                         <div class="widget-foot">
-                            <!-- Footer goes here -->
                         </div>
                     </div>
                 </div>

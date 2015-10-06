@@ -19,6 +19,7 @@ class Hermanos extends Migration {
 			$table->engine = 'InnoDB';
 			$table->increments('id')->unsigned();
 			$table->integer('user_id')->unsigned();
+			$table->integer('num_hermano');
 			$table->string('nombre');
 			$table->string('apellidos');
 			$table->date('fecha_nacimiento');
