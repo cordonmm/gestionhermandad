@@ -31,6 +31,7 @@ class AdminHermanosController extends BaseController{
             'cp'                 => 'required|numeric|max:99999',
             'provincia'          => 'required|min:3',
             'password'           => 'required|min:3',
+            'fecha_alta'         => 'required|min:3',
         );
         // Validate the inputs
 
@@ -44,6 +45,7 @@ class AdminHermanosController extends BaseController{
             $hermano->nombre            = Input::get('nombre');
             $hermano->apellidos         = Input::get('apellidos');
             $hermano->fecha_nacimiento  = Input::get('fecha_nacimiento');
+            $hermano->fecha_alta        = Input::get('fecha_alta');
             $hermano->ccc               = Input::get('ccc');
             $hermano->tlf_fijo          = Input::get('tlf_fijo');
             $hermano->tlf_movil         = Input::get('tlf_movil');
@@ -54,6 +56,7 @@ class AdminHermanosController extends BaseController{
             $hermano->provincia         = Input::get('provincia');
             $user->password             = Input::get('password');
             $hermano->observaciones     = Input::get('observaciones');
+            $hermano->tipo_pago         = Input::get('tipo_pago');
 
 
             // Was the entrada post updated?

@@ -62,47 +62,52 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-lg-2 control-label">Cuota anual</label>
+                                        <label class="col-lg-2 control-label">Cuota anual adulto</label>
                                         <div class="col-lg-3 {{{ $errors->has('cuota') ? 'error' : '' }}}">
                                             <input name="cuota" type="text" class="form-control" placeholder="Cuota anual" value="{{{ Input::old('cuota', isset($configuracion) ? $configuracion->cuota : null) }}}"">
                                             {{ $errors->first('cuota', '<span class="help-block">:message</span>') }}
                                         </div>
+                                        <label class="col-lg-2 control-label">Cuota anual menor</label>
+                                        <div class="col-lg-5 {{{ $errors->has('cuota_menor') ? 'error' : '' }}}">
+                                            <input name="cuota_menor" type="text" class="form-control" placeholder="Cuota anual" value="{{{ Input::old('cuota_menor', isset($configuracion) ? $configuracion->cuota_menor : null) }}}"">
+                                            {{ $errors->first('cuota_menor', '<span class="help-block">:message</span>') }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group {{{ $errors->has('titulo') ? 'error' : '' }}}">
                                         <label class="col-lg-2 control-label">Precio papeleta</label>
-                                        <div class="col-lg-5 {{{ $errors->has('preciopapeleta') ? 'error' : '' }}}">
+                                        <div class="col-lg-3 {{{ $errors->has('preciopapeleta') ? 'error' : '' }}}">
                                             <input name="preciopapeleta" type="text" class="form-control" placeholder="Precio papeleta" value="{{{ Input::old('preciopapeleta', isset($configuracion) ? $configuracion->preciopapeleta : null) }}}"">
                                             {{ $errors->first('preciopapeleta', '<span class="help-block">:message</span>') }}
                                         </div>
-                                    </div>
-
-                                    <div class="form-group {{{ $errors->has('titulo') ? 'error' : '' }}}">
                                         <label class="col-lg-2 control-label">Fecha inicio solicitud insignias</label>
-                                        <div class="col-lg-3 {{{ $errors->has('fecha_inicio_insignias') ? 'error' : '' }}}">
+                                        <div class="col-lg-5 {{{ $errors->has('fecha_inicio_insignias') ? 'error' : '' }}}">
                                             <input name="fecha_inicio_insignias" type="date" class="form-control" placeholder="dd/mm/aaaa" value="{{{ Input::old('fecha_inicio_insignias', isset($configuracion) ? date('Y-m-d', strtotime($configuracion->fecha_inicio_insignias)) : null) }}}"">
                                             {{ $errors->first('fecha_inicio_insignias', '<span class="help-block">:message</span>') }}
                                         </div>
-                                        <label class="col-lg-2 control-label">Fecha fin solicitud insignias</label>
-                                        <div class="col-lg-5 {{{ $errors->has('fecha_fin_insignias') ? 'error' : '' }}}">
-                                            <input name="fecha_fin_insignias" type="date" class="form-control" placeholder="dd/mm/aaaa" value="{{{ Input::old('fecha_fin_insignias', isset($configuracion) ? date('Y-m-d', strtotime($configuracion->fecha_fin_insignias)) : null) }}}"">
-                                            {{ $errors->first('fecha_fin_insignias', '<span class="help-block">:message</span>') }}
-                                        </div>
                                     </div>
 
                                     <div class="form-group {{{ $errors->has('titulo') ? 'error' : '' }}}">
+                                        <label class="col-lg-2 control-label">Fecha fin solicitud insignias</label>
+                                        <div class="col-lg-3 {{{ $errors->has('fecha_fin_insignias') ? 'error' : '' }}}">
+                                            <input name="fecha_fin_insignias" type="date" class="form-control" placeholder="dd/mm/aaaa" value="{{{ Input::old('fecha_fin_insignias', isset($configuracion) ? date('Y-m-d', strtotime($configuracion->fecha_fin_insignias)) : null) }}}"">
+                                            {{ $errors->first('fecha_fin_insignias', '<span class="help-block">:message</span>') }}
+                                        </div>
                                         <label class="col-lg-2 control-label">Fecha inicio solicitud papeletas</label>
-                                        <div class="col-lg-3 {{{ $errors->has('fecha_inicio_papeletas') ? 'error' : '' }}}">
+                                        <div class="col-lg-5 {{{ $errors->has('fecha_inicio_papeletas') ? 'error' : '' }}}">
                                             <input name="fecha_inicio_papeletas" type="date" class="form-control" placeholder="dd/mm/aaaa" value="{{{ Input::old('fecha_inicio_papeletas', isset($configuracion) ? date('Y-m-d', strtotime($configuracion->fecha_inicio_papeletas)) : null) }}}"">
                                             {{ $errors->first('fecha_inicio_papeletas', '<span class="help-block">:message</span>') }}
-                                        </div>
-                                        <label class="col-lg-2 control-label">Fecha fin solicitud papeletas</label>
-                                        <div class="col-lg-5 {{{ $errors->has('fecha_fin_insignias') ? 'error' : '' }}}">
-                                            <input name="fecha_fin_papeletas" type="date" class="form-control" placeholder="dd/mm/aaaa" value="{{{ Input::old('fecha_fin_papeletas', isset($configuracion) ? date('Y-m-d', strtotime($configuracion->fecha_fin_papeletas)) : null) }}}"">
-                                            {{ $errors->first('fecha_fin_papeletas', '<span class="help-block">:message</span>') }}
                                         </div>
                                     </div>
 
                                     <div class="form-group">
+                                        <label class="col-lg-2 control-label">Fecha fin solicitud papeletas</label>
+                                        <div class="col-lg-3 {{{ $errors->has('fecha_fin_insignias') ? 'error' : '' }}}">
+                                            <input name="fecha_fin_papeletas" type="date" class="form-control" placeholder="dd/mm/aaaa" value="{{{ Input::old('fecha_fin_papeletas', isset($configuracion) ? date('Y-m-d', strtotime($configuracion->fecha_fin_papeletas)) : null) }}}"">
+                                            {{ $errors->first('fecha_fin_papeletas', '<span class="help-block">:message</span>') }}
+                                        </div>
                                         <label class="col-lg-2 control-label">Logo</label>
-                                        <div class="col-lg-3 {{{ $errors->has('logo') ? 'error' : '' }}}">
+                                        <div class="col-lg-5 {{{ $errors->has('logo') ? 'error' : '' }}}">
                                             <input name="logo" type="file" class="form-control" value="{{{ Input::old('logo', isset($configuracion) ? $configuracion->logo : null) }}}"">
                                             {{ $errors->first('logo', '<span class="help-block">:message</span>') }}
                                         </div>

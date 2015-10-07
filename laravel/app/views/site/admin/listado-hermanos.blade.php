@@ -48,7 +48,10 @@
                                                     <td>{{$hermano->poblacion}}</td>
                                                     <td>{{$hermano->tlf_fijo}}</td>
                                                     <td>{{$hermano->tlf_movil}}</td>
-                                                    <td><a href="{{URL::to('gestionhdad/hermanos/'.$hermano->id.'/ficha/')}}"><button type="button" class="btn btn-sm btn-danger">Ver</button></a></td>
+                                                    <td>
+                                                        <a href="{{URL::to('gestionhdad/hermanos/'.$hermano->id.'/ficha/')}}"><button type="button" class="btn btn-sm btn-success">Ver</button></a>
+                                                        <a href="{{URL::to('gestionhdad/hermanos/'.$hermano->id.'/baja/')}}"><button type="button" class="btn btn-sm btn-danger">Dar de baja</button></a>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                             </tbody>

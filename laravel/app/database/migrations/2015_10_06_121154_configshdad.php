@@ -24,6 +24,7 @@ class Configshdad extends Migration {
             $table->Date('fecha_inicio_papeletas');
             $table->Date('fecha_fin_papeletas');
             $table->Float('cuota');
+            $table->Float('cuota_menor');
             $table->String('logo');
             $table->String('nombre_hdad');
             $table->String('descripcion');

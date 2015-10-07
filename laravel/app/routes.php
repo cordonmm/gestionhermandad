@@ -36,6 +36,9 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
     Route::get('papeleta', function () {
         return View::make('site/papeleta');
     });
+    Route::get('nuevo-hermano', function () {
+        return View::make('site/admin/nuevo-hermano');
+    });
     Route::get('listado-hermanos', function () {
         return View::make('site/admin/listado-hermanos');
     });

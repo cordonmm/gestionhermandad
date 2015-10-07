@@ -17,6 +17,7 @@ class AdminConfiguracionController extends BaseController{
             'tramos'                 => 'required|numeric',
             'preciopapeleta'         => 'required|numeric',
             'cuota'                  => 'required|numeric',
+            'cuota_menor'            => 'required|numeric',
             'fecha_inicio_insignias' => 'required',
             'fecha_fin_insignias'    => 'required',
             'fecha_inicio_papeletas' => 'required',
@@ -43,7 +44,8 @@ class AdminConfiguracionController extends BaseController{
 
             $configuracion->nazarenos               = Input::get('nazarenos');
             $configuracion->tramos                  = Input::get('tramos');
-            $configuracion->preciopapeleta          = Input::get('preciopapeleta');
+            $configuracion->cuota                   = Input::get('cuota');
+            $configuracion->cuota_menor             = Input::get('cuota_menor');
             $configuracion->preciopapeleta          = Input::get('preciopapeleta');
             $configuracion->fecha_inicio_insignias  = Input::get('fecha_inicio_insignias');
             $configuracion->fecha_fin_insignias     = Input::get('fecha_fin_insignias');

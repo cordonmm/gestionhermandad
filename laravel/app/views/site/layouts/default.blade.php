@@ -185,7 +185,12 @@
                 @endif
 
                 @if(Auth::user()->hasRole('admin'))
-                    <li><a href="{{URL::to('gestionhdad/listado-hermanos')}}"><i class="fa fa-file-o"></i> Listado Hermanos</a></li>
+                    <li class="has_sub"><a href="#"><i class="fa fa-file-o"></i> Hermanos  <span class="pull-right"><i class="fa fa-chevron-right"></i></span></a>
+                        <ul>
+                            <li><a href="{{URL::to('gestionhdad/nuevo-hermano')}}"><i class="fa fa-file-o"></i> Nuevo Hermano</a></li>
+                            <li><a href="{{URL::to('gestionhdad/listado-hermanos')}}"><i class="fa fa-file-o"></i> Listado Hermanos</a></li>
+                        </ul>
+                    </li>
                     <li><a href="{{URL::to('gestionhdad/listado-insignias')}}"><i class="fa fa-table"></i> Listado Insignias</a></li>
                 @endif
             @endif
