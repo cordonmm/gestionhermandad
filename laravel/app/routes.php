@@ -42,6 +42,9 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
     Route::get('listado-insignias', function () {
         return View::make('site/admin/listado-insignias');
     });
+    Route::get('configuracion', function () {
+        return View::make('site/admin/configuracion');
+    });
 
     //HERMANOS
     Route::get('hermanos/{hermano}/ficha','AdminHermanosController@getFicha');
@@ -50,6 +53,9 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
     //INSIGNIAS
     Route::get('insignias/{insignia}/ficha','AdminInsigniasController@getFicha');
     Route::post('insignias/{insignia}/editar','AdminInsigniasController@insigniaEdit');
+
+    //CONFIGURACION
+    Route::post('configuracion/editar','AdminConfiguracionController@configuracionEdit');
     //
 });
 Route::get('/', function () {

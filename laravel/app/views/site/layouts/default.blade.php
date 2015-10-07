@@ -57,6 +57,7 @@
 </head>
 
 <body>
+{{--*/ $configuracion = Confighdad::first() /*--}}
 
 <div class="navbar navbar-fixed-top bs-docs-nav" role="banner">
 
@@ -67,7 +68,7 @@
                 <span>Menu</span>
             </button>
             <!-- Site name for smallar screens -->
-            <a href="#" class="navbar-brand hidden-lg" style="color: #D31B1B;"><b>Museo</b></a>
+            <a href="#" class="navbar-brand hidden-lg" style="color: #D31B1B;"><b>{{$configuracion->nombre_hdad}}</b></a>
         </div>
 
 
@@ -116,12 +117,19 @@
     <div class="container">
         <div class="row">
 
+
+
             <!-- Logo section -->
             <div class="col-md-10">
                 <!-- Logo. -->
                 <div class="logo">
-                    <h1><a href="#">Hermandad del <span class="bold" style="color: #D31B1B;">Museo</span></a></h1>
-                    <p>Real Ilustre y Fervorosa Hermandad del Santísimo Sacramento y Archicofradía de Nazarenos la de la Sagrada Expiración de Nuestro Señor Jesucristo y María Santísima de las Aguas.</p>
+                    <div class="col-md-1">
+                        <img class="img-responsive" alt="Logo" src="{{asset('template/css/images/logo.png')}}" />
+                    </div>
+                    <br>
+                    <h1><a href="#"><span class="bold" style="color: #D31B1B;">{{$configuracion->nombre_hdad}}</span></a></h1>
+
+                    <p>{{$configuracion->descripcion}}</p>
                 </div>
                 <!-- Logo ends -->
             </div>
