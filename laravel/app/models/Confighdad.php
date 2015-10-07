@@ -20,8 +20,6 @@ class Confighdad extends Eloquent {
         return $this->preciopapeleta;
     }
 
-
-
     public function cuota()
     {
         return $this->cuota;
