@@ -1091,6 +1091,20 @@ table.dataTable thead .sorting_desc_disabled {
     padding: 8px 15px;
 }
 
+.widget-headrojo{
+	background-color: #f2dede;
+	border-color: #ebccd1;
+	color: #a94442;
+	border-top-right-radius: 3px;
+	border-top-left-radius: 3px;
+	text-shadow:0px 1px #fff;
+	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #fff;
+	font-size: 13px;
+	font-weight: bold;
+	padding: 8px 15px;
+}
+
 .widget.wblack .widget-head{
   background-color: #333;
   background: -webkit-gradient(linear, left top, left bottom, from(#333), to(#111));

@@ -175,6 +175,11 @@
                     <li><a href="{{URL::to('gestionhdad/misrecibos')}}"><i class="fa fa-table"></i> Mis recibos</a></li>
                     <li><a href="{{URL::to('gestionhdad/papeleta')}}"><i class="fa fa-tasks"></i> Papeleta de Sitio</a></li>
                 @endif
+
+                @if(Auth::user()->hasRole('admin'))
+                    <li><a href="{{URL::to('gestionhdad/listado-hermanos')}}"><i class="fa fa-file-o"></i> Listado Hermanos</a></li>
+                    <li><a href="{{URL::to('gestionhdad/listado-insignias')}}"><i class="fa fa-table"></i> Listado Insignias</a></li>
+                @endif
             @endif
         </ul>
     </div>

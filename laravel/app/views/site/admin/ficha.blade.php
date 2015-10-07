@@ -12,7 +12,7 @@
                     <div class="widget wgreen">
 
                         <div class="widget-head">
-                            <div class="pull-left">Hermano número  {{$hermano->id}}</div>
+                            <div class="pull-left">Hermano número  {{$hermano->num_hermano}}</div>
                             <div class="widget-icons pull-right">
                                 <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
                                 <!--<a href="#" class="wclose"><i class="fa fa-times"></i></a>-->
@@ -150,12 +150,68 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="widget-foot">
-                            <!-- Footer goes here -->
-                        </div>
                     </div>
 
                 </div>
+
+                <div class="col-md-12">
+
+
+                    <div class="widget wgreen">
+
+                        <div class="widget-headrojo">
+                            <div class="pull-left">Recibos cobrados</div>
+                            <div class="widget-icons pull-right">
+                                <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+                                <!--<a href="#" class="wclose"><i class="fa fa-times"></i></a>-->
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="widget-content">
+                            <div class="padd">
+
+                                <!-- Table Page -->
+                                <div class="page-tables">
+                                    <!-- Table -->
+                                    <div class="table-responsive">
+                                        <table cellpadding="0" cellspacing="0" border="0" id="data-table-1" width="100%">
+                                            <thead>
+                                            <tr>
+                                                <th>Concepto</th>
+                                                <th>Fecha de cobro</th>
+                                                <th>Total</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            {{--*/ $recibos = Recibo::where('hermano_id','=',$hermano->id)->orderby('id','desc')->get() /*--}}
+                                            @foreach($recibos as $recibo)
+                                                <tr>
+                                                    <td>{{$recibo->concepto}}</td>
+                                                    <td>{{date('d/m/Y', strtotime($recibo->fecha_cobro))}}</td>
+                                                    <td>{{$recibo->total}}</td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                            <tfoot>
+                                            <tr>
+                                                <th>Concepto</th>
+                                                <th>Fecha de cobro</th>
+                                                <th>Total</th>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
 
             </div>
 
