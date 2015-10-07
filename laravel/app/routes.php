@@ -1,9 +1,12 @@
 <?php
+
+//MODELOS
 Route::model('hermano', 'Hermano');
+Route::model('insignia', 'Insignia');
 
-
-
+//PATRONES
 Route::pattern('hermano', '[0-9]+');
+Route::pattern('insignia', '[0-9]+');
 
 
 /*
@@ -36,9 +39,17 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
     Route::get('listado-hermanos', function () {
         return View::make('site/admin/listado-hermanos');
     });
+    Route::get('listado-insignias', function () {
+        return View::make('site/admin/listado-insignias');
+    });
 
+    //HERMANOS
     Route::get('hermanos/{hermano}/ficha','AdminHermanosController@getFicha');
     Route::post('hermanos/{hermano}/editar','AdminHermanosController@hermanoEdit');
+
+    //INSIGNIAS
+    Route::get('insignias/{insignia}/ficha','AdminInsigniasController@getFicha');
+    Route::post('insignias/{insignia}/editar','AdminInsigniasController@insigniaEdit');
     //
 });
 Route::get('/', function () {

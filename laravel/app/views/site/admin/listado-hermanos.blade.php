@@ -48,7 +48,7 @@
                                                     <td>{{$hermano->poblacion}}</td>
                                                     <td>{{$hermano->tlf_fijo}}</td>
                                                     <td>{{$hermano->tlf_movil}}</td>
-                                                    <td><a href="{{URL::to('gestionhdad/hermanos/'.$hermano->id.'/ficha/')}}"><button type="button" class="btn btn-sm btn-danger">Editar</button></a></td>
+                                                    <td><a href="{{URL::to('gestionhdad/hermanos/'.$hermano->id.'/ficha/')}}"><button type="button" class="btn btn-sm btn-danger">Ver</button></a></td>
                                                 </tr>
                                             @endforeach
                                             </tbody>

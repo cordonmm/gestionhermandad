@@ -22,7 +22,7 @@ class AdminHermanosController extends BaseController{
             'nombre'             => 'required|min:3',
             'apellidos'          => 'required|min:3',
             'fecha_nacimiento'   => 'required|min:3',
-            'ccc'                => 'required|max:20',
+            'ccc'                => 'max:20',
             'tlf_fijo'           => 'numeric|max:999999999',
             'tlf_movil'          => 'numeric|max:999999999',
             'email'              => 'required|email',

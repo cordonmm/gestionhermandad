@@ -126,6 +126,16 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label class="col-lg-2 control-label">Forma de pago</label>
+                                        <div class="col-lg-3">
+                                            <select name="tipo_pago" class="form-control">
+                                                <option value="A">Anual</option>
+                                                <option value="S">Semestral</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
                                         <label class="col-lg-2 control-label">Observaciones</label>
                                         <div class="col-lg-10">
                                             <textarea name="observaciones" class="form-control" rows="5" placeholder="Observaciones">{{HTML::decode($hermano->observaciones)}}</textarea>
