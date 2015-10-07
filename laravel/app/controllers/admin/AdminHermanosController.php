@@ -22,13 +22,13 @@ class AdminHermanosController extends BaseController{
             'nombre'             => 'required|min:3',
             'apellidos'          => 'required|min:3',
             'fecha_nacimiento'   => 'required|min:3',
-            'ccc'                => 'required|min:3',
-            'tlf_fijo'           => 'numeric|max:9',
-            'tlf_movil'          => 'numeric|max:90',
+            'ccc'                => 'max:20',
+            'tlf_fijo'           => 'numeric|max:999999999',
+            'tlf_movil'          => 'numeric|max:999999999',
             'email'              => 'required|email',
             'direccion'          => 'required|min:3',
             'poblacion'          => 'required|min:3',
-            'cp'                 => 'required|numeric|max:5',
+            'cp'                 => 'required|numeric|max:99999',
             'provincia'          => 'required|min:3',
             'password'           => 'required|min:3',
         );
@@ -38,6 +38,7 @@ class AdminHermanosController extends BaseController{
 
         if ($validator->passes())
         {
+            $user = User::find($hermano->user_id);
             // Update the entrada post data
 
             $hermano->nombre            = Input::get('nombre');
@@ -46,12 +47,12 @@ class AdminHermanosController extends BaseController{
             $hermano->ccc               = Input::get('ccc');
             $hermano->tlf_fijo          = Input::get('tlf_fijo');
             $hermano->tlf_movil         = Input::get('tlf_movil');
-            $hermano->user->email       = Input::get('contenido');
+            $user->email                = Input::get('email');
             $hermano->direccion         = Input::get('direccion');
             $hermano->poblacion         = Input::get('poblacion');
             $hermano->cp                = Input::get('cp');
             $hermano->provincia         = Input::get('provincia');
-            $hermano->user->password    = Input::get('password');
+            $user->password             = Input::get('password');
             $hermano->observaciones     = Input::get('observaciones');
 
 
@@ -60,21 +61,21 @@ class AdminHermanosController extends BaseController{
 
             if($hermano->save())
             {
-                if($hermano->user->save())
+                if($user->save())
                 {
                     DB::commit();
-                    return Redirect::to('site/admin/hermanos/' . $hermano->id . '/ficha')->with('success', Lang::get('site/admin/hermanos/ficha/messages.update.success'));
+                    return Redirect::to('gestionhdad/hermanos/' . $hermano->id . '/ficha')->with('success', 'Datos modificados correctamente');
                 }else{
                     DB::rollback();
                 }
             }
 
             // Redirect to the entradas post management page
-            return Redirect::to('site/admin/hermanos/' . $hermano->id . '/ficha')->with('error', Lang::get('site/admin/hermanos/ficha/messages.update.error'));
+            return Redirect::to('gestionhdad/hermanos/' . $hermano->id . '/ficha')->with('error', 'Error');
         }
 
         // Form validation failed
-        return Redirect::to('site/admin/hermanos/' . $hermano->id . '/ficha')->withInput()->withErrors($validator);
+        return Redirect::to('gestionhdad/hermanos/' . $hermano->id . '/ficha')->withInput()->withErrors($validator);
 
     }
 
