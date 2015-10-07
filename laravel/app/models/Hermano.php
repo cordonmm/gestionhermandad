@@ -4,6 +4,9 @@ class Hermano extends Eloquent {
 
     public $timestamps = false;
 
+
+
+
     public function nombre()
     {
         return $this->nombre;
@@ -16,12 +19,12 @@ class Hermano extends Eloquent {
 
     public function fecha_nacimiento()
     {
-        return $this->date($this->fecha_nacimiento);
+        return $this->fecha_nacimiento;
     }
 
     public function fecha_alta()
     {
-        return $this->date($this->fecha_alta);
+        return $this->fecha_alta;
     }
 
     public function ccc()
@@ -71,7 +74,7 @@ class Hermano extends Eloquent {
 
     public function pagado_hasta()
     {
-        return $this->date($this->pagado_hasta);
+        return new DateTime($this->pagado_hasta);
     }
 
     public function activo()
@@ -92,6 +95,27 @@ class Hermano extends Eloquent {
     {
         return $this->hasMany('Recibo', 'hermano_id');
     }
+
+    public function recibospendientes()
+    {
+        $recibos = 0;
+        $finaño = new DateTime(date("Y").'-12-31');
+        $diferencia = $this->pagado_hasta()->diff($finaño);
+        $meses = ( $diferencia->y * 12 ) + $diferencia->m;
+        switch($this->tipo_pago()){
+            case 'mensual':
+                $recibos = $meses;
+                break;
+            case 'semestral':
+                $recibos = ceil($meses / 6);
+                break;
+            case 'anual':
+                $recibos = ceil($meses / 12);
+                break;
+        }
+        return $recibos;
+    }
+
 
     public function papeletas()
     {

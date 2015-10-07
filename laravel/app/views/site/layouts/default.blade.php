@@ -134,14 +134,20 @@
 
                     <!-- revenue data -->
                     <div class="hdata">
+                        @if(Auth::check())
+
+                            @if(Auth::user()->hasRole('user'))
                         <div class="mcol-left">
                             <!-- Icon with green background -->
                             <i class="fa fa-money bred"></i>
                         </div>
+
                         <div class="mcol-right">
                             <!-- Number of visitors -->
-                            <p><em>Recibos</em><a href="#">1</a></p>
+                            <p><em>Recibos</em><a href="{{URL::to('gestionhdad/misrecibos')}}">{{Hermano::find(Auth::user()->id)->recibospendientes()}}</a></p>
                         </div>
+                            @endif
+                        @endif
                         <div class="clearfix"></div>
                     </div>
 

@@ -25,7 +25,7 @@
                                             <thead>
                                             <tr>
                                                 <th>Nº</th>
-                                                <th>Descripción</th>
+                                                <th>Concepto</th>
                                                 <th>Fecha emisión</th>
                                                 <th>Total</th>
                                                 <th>Estado</th>
@@ -33,22 +33,52 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Agosto 2015</td>
-                                                <td>01/08/2015</td>
-                                                <td>45,50</td>
-                                                <td>Pagado</td>
-                                                <td><button disabled="" type="button" class="btn btn-sm btn-danger">Pagar</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Septiembre 2015</td>
-                                                <td>01/09/2015</td>
-                                                <td>45,50</td>
-                                                <td>Pendiente</td>
-                                                <td><button type="button" class="btn btn-sm btn-danger">Pagar</button></td>
-                                            </tr>
+                                            @foreach(Recibo::where('hermano_id','=',Auth::user()->id)->orderby('fecha_cobro','desc')->get() as $recibo)
+                                                <tr>
+                                                    <td>{{$recibo->id}}</td>
+                                                    <td>{{$recibo->concepto}}</td>
+                                                    <td>{{date('d/m/Y',strtotime($recibo->fecha_cobro))}}</td>
+                                                    <td>{{$recibo->total}}</td>
+                                                    <td>Pagado</td>
+                                                    <td><button disabled="" type="button" class="btn btn-sm btn-danger">Pagar</button></td>
+                                                </tr>
+                                            @endforeach
+                                            @for($i = 1; $i <= Hermano::find(Auth::user()->id)->recibospendientes(); $i++)
+                                                <tr>
+                                                    <td>{{Recibo::where('hermano_id','=',Auth::user()->id)->max('id') + $i}}</td>
+                                                    {{--*/ $tipopago = Hermano::find(Auth::user()->id)->tipo_pago /*--}}
+                                                    {{--*/ $cuantia = 0 /*--}}
+
+                                                    @if($tipopago == 'anual')
+                                                        <td>Año {{date('Y')}}</td>
+                                                        {{--*/ $cuantia = Confighdad::first()->cuota /*--}}
+                                                    @endif
+                                                    @if($tipopago == 'semestral')
+                                                        <td>{{2-Hermano::find(Auth::user()->id)->recibospendientes()+ $i}}º semestre</td>
+                                                        {{--*/ $cuantia = Confighdad::first()->cuota / 2 /*--}}
+                                                    @endif
+                                                    @if($tipopago == 'trimestral')
+                                                        <td>{{4-Hermano::find(Auth::user()->id)->recibospendientes()+ $i}}º trimestre</td>
+                                                        {{--*/ $cuantia = Confighdad::first()->cuota/4 /*--}}
+                                                    @endif
+                                                    @if($tipopago == 'mensual')
+                                                        <td>{{12-Hermano::find(Auth::user()->id)->recibospendientes()+ $i}}º mes</td>
+                                                        {{--*/ $cuantia = Confighdad::first()->cuota/12 /*--}}
+                                                    @endif
+
+
+                                                    <td>---</td>
+                                                    <td>{{$cuantia}}</td>
+                                                    <td>Pendiente</td>
+                                                    @if($i = 1)
+                                                        <td><button enable="" type="button" class="btn btn-sm btn-danger">Pagar</button></td>
+                                                    @else
+                                                        <td><button disabled="" type="button" class="btn btn-sm btn-danger">Pagar</button></td>
+                                                    @endif
+
+                                                </tr>
+                                            @endfor
+
                                             </tbody>
                                             <tfoot>
                                             <tr>
