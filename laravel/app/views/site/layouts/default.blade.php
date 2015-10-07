@@ -79,7 +79,7 @@
 
                 <!-- Upload to server link. Class "dropdown-big" creates big dropdown -->
                 <li class="dropdown dropdown-big">
-                    <a class="dropdown-toggle" data-toggle="dropdown"><span class="label label-success"><i class="fa fa-user"></i></span> Manuel Ángel Cordón Pérez</a>
+                    <a class="dropdown-toggle" data-toggle="dropdown"><span class="label label-success"><i class="fa fa-user"></i></span> {{User::find(Auth::user()->id)->hermano->nombre }} {{User::find(Auth::user()->id)->hermano->apellidos }}</a>
                     <!-- Dropdown -->
 
                 </li>

@@ -31,6 +31,10 @@ class Recibos extends Migration {
 	 */
 	public function down()
 	{
+        Schema::table('recibos', function (Blueprint $table) {
+            $table->dropForeign('recibos_hermano_id_foreign');
+
+        });
 		Schema::drop('recibos');
 	}
 

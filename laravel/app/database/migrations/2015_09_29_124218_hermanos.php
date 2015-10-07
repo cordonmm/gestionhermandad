@@ -34,6 +34,7 @@ class Hermanos extends Migration {
 			$table->integer('tlf_movil');
 			$table->text('observaciones');
 			$table->date('pagado_hasta');
+            $table->string('tipo_pago');
 			$table->boolean('activo')->default(true);
 			$table->foreign('user_id')->references('id')->on('users');
 		});
@@ -47,6 +48,10 @@ class Hermanos extends Migration {
 	 */
 	public function down()
 	{
+        Schema::table('hermanos', function (Blueprint $table) {
+            $table->dropForeign('hermanos_user_id_foreign');
+
+        });
 		Schema::drop('hermanos');
 	}
 

@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('TiposPapeletaTableSeeder');
 		$this->call('PapeletasTableSeeder');
 		$this->call('ReservasInsigniasTableSeeder');
-	}
+        $this->call('ConfighdadTableSeeder');
+    }
 
 }

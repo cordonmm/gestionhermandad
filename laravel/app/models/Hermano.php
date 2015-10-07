@@ -78,6 +78,10 @@ class Hermano extends Eloquent {
     {
         return $this->activo;
     }
+    public function tipo_pago()
+    {
+        return $this->tipo_pago;
+    }
 
     public function user()
     {

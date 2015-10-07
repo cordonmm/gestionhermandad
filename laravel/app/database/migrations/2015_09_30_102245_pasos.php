@@ -27,6 +27,7 @@ class Pasos extends Migration
 	 */
 	public function down()
 	{
+
 		Schema::drop('pasos');
 	}
 

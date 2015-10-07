@@ -30,7 +30,12 @@ class Insignias extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('insignias');
+        Schema::table('insignias', function (Blueprint $table) {
+            $table->dropForeign('insignias_paso_id_foreign');
+
+        });
+        Schema::drop('insignias');
+
 	}
 
 }

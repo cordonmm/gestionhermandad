@@ -32,6 +32,11 @@ class ReservasInsignia extends Migration {
 	 */
 	public function down()
 	{
+        Schema::table('reservas_insignia', function (Blueprint $table) {
+            $table->dropForeign('reservas_insignia_hermano_id_foreign');
+            $table->dropForeign('reservas_insignia_insignia_id_foreign');
+
+        });
 		Schema::drop('reservas_insignia');
 	}
 

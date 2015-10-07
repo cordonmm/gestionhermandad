@@ -35,6 +35,11 @@ class Papeletas extends Migration {
 	 */
 	public function down()
 	{
+        Schema::table('papeletas', function (Blueprint $table) {
+            $table->dropForeign('papeletas_tipo_id_foreign');
+            $table->dropForeign('papeletas_insignia_id_foreign');
+
+        });
 		Schema::drop('papeletas');
 	}
 

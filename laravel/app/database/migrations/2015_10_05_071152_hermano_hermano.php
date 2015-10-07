@@ -30,6 +30,11 @@ class HermanoHermano extends Migration {
 	 */
 	public function down()
 	{
+        Schema::table('hermano_hermano', function (Blueprint $table) {
+            $table->dropForeign('hermano_hermano_hermano1_id_foreign');
+            $table->dropForeign('hermano_hermano_hermano2_id_foreign');
+
+        });
 		Schema::drop('hermano_hermano');
 	}
 
