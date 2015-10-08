@@ -197,7 +197,16 @@
                             <li><a href="{{URL::to('gestionhdad/listado-hermanos')}}"><i class="fa fa-file-o"></i> Listado Hermanos</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{URL::to('gestionhdad/listado-insignias')}}"><i class="fa fa-table"></i> Listado Insignias</a></li>
+
+                        <li class="has_sub"><a href="#"><i class="fa fa-comment"></i> Insignias  <span class="pull-right"><i class="fa fa-chevron-right"></i></span></a>
+                            <ul>
+                                <li><a href="{{URL::to('gestionhdad/nueva-insignia')}}"><i class="fa fa-file-o"></i> Nueva Insignia</a></li>
+                                <li><a href="{{URL::to('gestionhdad/listado-insignias')}}"><i class="fa fa-table"></i> Listado Insignias</a></li>
+                            </ul>
+                        </li>
+
+
+                        <li><a href="{{URL::to('gestionhdad/configuracion')}}"><i class="fa fa-bars"></i> Configuración</a></li>
                 @endif
             @endif
         </ul>

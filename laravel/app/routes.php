@@ -48,6 +48,9 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
     Route::get('configuracion', function () {
         return View::make('site/admin/configuracion');
     });
+    Route::get('reserva-insignias', function () {
+        return View::make('site/admin/reserva-insignias');
+    });
 
     //HERMANOS
     Route::get('hermanos/{hermano}/ficha','AdminHermanosController@getFicha');
