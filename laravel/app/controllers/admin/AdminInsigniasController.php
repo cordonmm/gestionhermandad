@@ -53,4 +53,47 @@ class AdminInsigniasController extends BaseController{
 
     }
 
+    public function insigniaCreate()
+    {
+        $rules = array(
+            'descripcion'        => 'required|min:3',
+            'cantidad'           => 'required|numeric',
+        );
+
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->passes())
+        {
+            $insignia = new Insignia();
+
+
+            $insignia->descripcion     = Input::get('descripcion');
+            $insignia->cantidad        = Input::get('cantidad');
+            $insignia->paso_id         = Input::get('paso_id');
+
+            if($insignia->save())
+            {
+                return Redirect::to('gestionhdad/insignias/' . $insignia->id . '/ficha')->with('success', Lang::get('admin/entradas/messages.create.success'));
+            }
+
+            return Redirect::to('gestionhdad/nueva-insignia')->with('error', Lang::get('admin/entradas/messages.create.error'));
+        }
+
+        return Redirect::to('gestionhdad/nueva-insignia')->withInput()->withErrors($validator);
+    }
+
+    public function insigniaReservas()
+    {
+        $insignias=Input::get("insignias");
+
+        for ($i=0; $i<count($insignias); $i++)
+        {
+            DB::table('reservas_insignia')->insert(array(
+                array('hermano_id' =>  Input::get('hermano'), 'insignia_id' => $insignias[$i], 'fecha_solicitud' => date('Y-m-d'), 'prioridad' => ($i+1), 'estado' => 'solicitada'),
+            ));
+        }
+
+        return Redirect::to('gestionhdad/reserva-insignias')->with('success', Lang::get('admin/entradas/messages.create.success'));
+    }
+
 }

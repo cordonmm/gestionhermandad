@@ -50,10 +50,15 @@
     <link href="{{ asset('template/css/widgets.css')}}" rel="stylesheet">
 
 
+
+
     @section('styles')
         @show
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('template/img/favicon/favicon.ico')}}">
+
+
+
 </head>
 
 <body>
@@ -200,6 +205,10 @@
 
                         <li class="has_sub"><a href="#"><i class="fa fa-comment"></i> Insignias  <span class="pull-right"><i class="fa fa-chevron-right"></i></span></a>
                             <ul>
+                                {{--*/ $hoy = date('Y-m-d') /*--}}
+                                @if($hoy >= $configuracion->fecha_inicio_insignias && $hoy <= $configuracion->fecha_fin_insignias)
+                                    <li><a href="{{URL::to('gestionhdad/reserva-insignias')}}"><i class="fa fa-file-o"></i> Reserva de Insignias</a></li>
+                                @endif
                                 <li><a href="{{URL::to('gestionhdad/nueva-insignia')}}"><i class="fa fa-file-o"></i> Nueva Insignia</a></li>
                                 <li><a href="{{URL::to('gestionhdad/listado-insignias')}}"><i class="fa fa-table"></i> Listado Insignias</a></li>
                             </ul>
@@ -240,7 +249,7 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- Copyright info -->
-                <p class="copy">Copyright &copy; 2012 | <a href="#">Your Site</a> </p>
+                <p class="copy">Copyright &copy; {{date('Y')}} | <a href="#">{{$configuracion->nombre_hdad}}</a> </p>
             </div>
         </div>
     </div>
@@ -267,12 +276,15 @@
 <script src="{{ asset('template/js/jquery.slimscroll.min.js')}}"></script> <!-- jQuery Slim Scroll -->
 <script src="{{ asset('template/js/jquery.dataTables.min.js')}}"></script> <!-- Data tables -->
 
+
+
 <!-- jQuery Flot -->
 <script src="{{ asset('template/js/excanvas.min.js')}}"></script>
 <script src="{{ asset('template/js/jquery.flot.js')}}"></script>
 <script src="{{ asset('template/js/jquery.flot.resize.js')}}"></script>
 <script src="{{ asset('template/js/jquery.flot.pie.js')}}"></script>
 <script src="{{ asset('template/js/jquery.flot.stack.js')}}"></script>
+
 
 <!-- jQuery Notification - Noty -->
 <!--<script src="{{ asset('template/js/jquery.noty.js')}}"></script>-->  <!-- jQuery Notify -->
@@ -289,6 +301,10 @@
 <script src="{{ asset('template/js/filter.js')}}"></script> <!-- Filter for support page -->
 <script src="{{ asset('template/js/custom.js')}}"></script> <!-- Custom codes -->
 <script src="{{ asset('template/js/charts.js')}}"></script> <!-- Charts & Graphs -->
+
+
+
+
 
 @yield('scripts')
 </body>

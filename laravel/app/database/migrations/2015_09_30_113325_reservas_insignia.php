@@ -19,6 +19,7 @@ class ReservasInsignia extends Migration {
 			$table->integer('hermano_id')->unsigned();
 			$table->integer('insignia_id')->unsigned();
 			$table->date('fecha_solicitud');
+			$table->integer('prioridad');
 			$table->string('estado');
 			$table->foreign('hermano_id')->references('id')->on('hermanos');
 			$table->foreign('insignia_id')->references('id')->on('insignias');

@@ -20,48 +20,54 @@
                             <div class="clearfix"></div>
                         </div>
 
-                        <!-- CONSULTAMOS LOS PASOS -->
-                        {{--*/ $pasos = Paso::orderby('id','asc')->get() /*--}}
+
+
+
 
                         <div class="widget-content">
                             <div class="padd">
 
-                                <form class="form-horizontal" method="post" action="">
+                                <form class="form-horizontal" method="post" action="{{ URL::to('gestionhdad/insignias/reservar') }}" autocomplete="off">
+                                    <!-- CSRF Token -->
+                                    <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+                                    <!-- ./ csrf token -->
+
                                     <div class="form-group">
+                                        <label class="col-lg-2 control-label">Listado de Hermanos</label>
+                                        <div class="col-lg-10">
+                                                <!--
 
-                                            <label class="col-lg-4 control-label">{{$pasos[0]->descripcion}}</label>
-                                            <div class="col-lg-2"></div>
+                                                onchange="$('.js-example-basic-multiple').select2({maximumSelectionLength: $('.js-hermanos option:selected').attr('id')});"
 
-                                            <label class="col-lg-4 control-label">{{$pasos[1]->descripcion}}</label>
-                                            <div class="col-lg-2"></div>
+                                                alert($('.js-hermanos').val())
+                                                -->
 
+                                            <select onchange="$('.js-example-basic-multiple').select2({maximumSelectionLength: $('.js-hermanos option:selected').attr('id')});" name="hermano" style="width: 100%;" class="js-hermanos" required>
+                                                <option>Seleccione un hermano</option>
+                                                @foreach(Hermano::orderby('id','asc')->get() as $hermano)
+                                                    @if(count($hermano->insigniasReservadas) < 4)
+                                                    <option name="cantidad" value="{{$hermano->id}}" id="{{(4 - count($hermano->insigniasReservadas))}}">{{$hermano->nombre}} {{$hermano->apellidos}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
 
-
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">Listado Insignias</label>
-                                        <div class="col-lg-4">
-                                            <!-- CONSULTAMOS LAS INSINIAS POR PASO -->
-                                            {{--*/ $insignias = Insignia::where('paso_id', '=', $pasos[0]->id)->orderby('id','desc')->get() /*--}}
-                                            @foreach($insignias as $insignia)
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" id="inlineCheckbox1" value="{{$insignia->id}}"> {{$insignia->descripcion}}
-                                                </label>
-                                                <br>
-                                            @endforeach
+                                        <div class="col-lg-10">
+
+                                            <select name="insignias[]" style="width: 100%;" class="js-example-basic-multiple" multiple="multiple">
+                                                @foreach(Paso::orderby('id','asc')->get() as $paso)
+                                                    @foreach(Insignia::where('paso_id', '=', $paso->id)->orderby('id','desc')->get() as $insignia)
+                                                        <option value="{{$insignia->id}}"><b>{{$paso->descripcion}}</b> - {{$insignia->descripcion}}</option>
+                                                    @endforeach
+                                                @endforeach
+
+                                            </select>
                                         </div>
 
-                                        <label class="col-lg-2 control-label">Listado Insignias</label>
-                                        <div class="col-lg-4">
-                                            <!-- CONSULTAMOS LAS INSINIAS POR PASO -->
-                                            {{--*/ $insignias = Insignia::where('paso_id', '=', $pasos[1]->id)->orderby('id','desc')->get() /*--}}
-                                            @foreach($insignias as $insignia)
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" id="inlineCheckbox1" value="{{$insignia->id}}"> {{$insignia->descripcion}}
-                                                </label>
-                                                <br>
-                                            @endforeach
-                                        </div>
+
                                     </div>
 
                                     <div class="form-group">
@@ -80,4 +86,21 @@
             </div>
         </div>
     </div>
+@stop
+@section('scripts')
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        $(".js-example-basic-multiple").select2({
+            placeholder: "Selecciona 4 insignias por orden de prioridad",
+            maximumSelectionLength: 4
+        });
+
+        $(".js-hermanos").select2({
+            placeholder: "Selecciona un hermano",
+        });
+
+    </script>
 @stop

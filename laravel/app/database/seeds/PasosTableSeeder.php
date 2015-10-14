@@ -9,10 +9,10 @@ class PasosTableSeeder extends Seeder
 
         DB::table('pasos')->insert(array(
                 array(
-                    'descripcion' => 'Sagrada Expiración de Nuestro Señor Jesucristo',
+                    'descripcion' => 'CRISTO',
                 ),
                 array(
-                    'descripcion' => 'María Santísima de las Aguas',
+                    'descripcion' => 'PALIO',
                 ))
         );
     }

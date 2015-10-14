@@ -28,7 +28,8 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
         return View::make('site/welcome');
     });
     Route::get('misdatos', function () {
-        return View::make('site/misdatos');
+        $hermano = Hermano::where('user_id','=', Auth::user()->id)->first();
+        return View::make('site/misdatos', compact('hermano'));
     });
     Route::get('misrecibos', function () {
         return View::make('site/misrecibos');
@@ -41,6 +42,9 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
     });
     Route::get('listado-hermanos', function () {
         return View::make('site/admin/listado-hermanos');
+    });
+    Route::get('nueva-insignia', function () {
+        return View::make('site/admin/nueva-insignia');
     });
     Route::get('listado-insignias', function () {
         return View::make('site/admin/listado-insignias');
@@ -55,10 +59,13 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
     //HERMANOS
     Route::get('hermanos/{hermano}/ficha','AdminHermanosController@getFicha');
     Route::post('hermanos/{hermano}/editar','AdminHermanosController@hermanoEdit');
+    Route::post('hermanos/crear','AdminHermanosController@hermanoCreate');
 
     //INSIGNIAS
     Route::get('insignias/{insignia}/ficha','AdminInsigniasController@getFicha');
     Route::post('insignias/{insignia}/editar','AdminInsigniasController@insigniaEdit');
+    Route::post('insignias/crear','AdminInsigniasController@insigniaCreate');
+    Route::post('insignias/reservar','AdminInsigniasController@insigniaReservas');
 
     //CONFIGURACION
     Route::post('configuracion/editar','AdminConfiguracionController@configuracionEdit');

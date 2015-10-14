@@ -27,7 +27,7 @@
 
                                 <br />
                                 <!-- Form starts.  -->
-                                <form class="form-horizontal" method="post" action="@if (isset($hermano)){{ URL::to('gestionhdad/hermanos/' . $hermano->id . '/editar') }}@endif" autocomplete="off">
+                                <form class="form-horizontal" method="post" action="@if (isset($hermano)){{ URL::to('gestionhdad/hermanos/' . $hermano->id . '/editar') }}@endif" autocomplete="on">
                                     <!-- CSRF Token -->
                                     <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
                                     <!-- ./ csrf token -->

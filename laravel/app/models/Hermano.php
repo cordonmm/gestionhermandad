@@ -129,7 +129,8 @@ class Hermano extends Eloquent {
 
     public function insigniasReservadas()
     {
-        return $this->belongsToMany('Insignia', 'reservas_insignia','insignia_id', 'hermano_id');
+        return $this->belongsToMany('Insignia', 'reservas_insignia','hermano_id','insignia_id');
     }
+
 
 }
