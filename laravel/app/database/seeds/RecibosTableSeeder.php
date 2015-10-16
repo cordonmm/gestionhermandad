@@ -12,13 +12,13 @@ class RecibosTableSeeder extends Seeder
         DB::table('recibos')->insert(array(
                 array(
                     'hermano_id' => $hermano_id,
-                    'concepto' => 'Abño 2015',
-                    'fecha_cobro' => '2015/06/12',
+                    'concepto' => '2Âº semestre aÃ±o 2014',
+                    'fecha_cobro' => '2014/06/12',
                     'total' => 45.50,
                 ),
                 array(
                     'hermano_id' => ($hermano_id + 1),
-                    'concepto' => 'Abño 2014',
+                    'concepto' => 'AÃ±o 2014',
                     'fecha_cobro' => '2015/01/21',
                     'total' => 46.50,
                 ))

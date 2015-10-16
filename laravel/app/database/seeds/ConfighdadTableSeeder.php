@@ -20,7 +20,7 @@ class ConfighdadTableSeeder extends Seeder {
                     'cuota_menor'            => 54,
                     'logo'                   => '/template/img/logo.png',
                     'nombre_hdad'            => 'Hermandad del Museo',
-                    'descripcion'            => 'Descripcion de Pruebas',
+                    'descripcion'            => 'Real Ilustre y Fervorosa Hermandad del Santísimo Sacramento y Archicofradía de Nazarenos la de la Sagrada Expiración de Nuestro Señor Jesucristo y María Santísima de las Aguas.',
 
                 ))
         );
