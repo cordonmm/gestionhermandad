@@ -55,6 +55,10 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
     Route::get('reserva-insignias', function () {
         return View::make('site/admin/reserva-insignias');
     });
+    Route::get('pagarRecibo', 'AdminRecibosController@getPayRecibo');
+
+    Route::get('hermano/crearRecibo', 'AdminRecibosController@crearRecibo');
+
 
     //HERMANOS
     Route::get('hermanos/{hermano}/ficha','AdminHermanosController@getFicha');

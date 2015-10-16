@@ -24,8 +24,8 @@ class HermanosTableSeeder extends Seeder {
                     'dni'     => '49090009M',
                     'tlf_fijo'     => 954723890,
                     'tlf_movil'     => 677169635,
-                    'observaciones'    => 'No paga desde que naci�.',
-                    'pagado_hasta'    => new DateTime,
+                    'observaciones'    => 'No paga desde que nació.',
+                    'pagado_hasta'    => '2014-12-31',
                     'tipo_pago' =>  'semestral',
 
                 ),
@@ -44,8 +44,8 @@ class HermanosTableSeeder extends Seeder {
                     'dni'     => '48090009M',
                     'tlf_fijo'     => 964723890,
                     'tlf_movil'     => 644169635,
-                    'observaciones'    => 'No paga desde que naci�. Y adem�s le gustan los caballos.',
-                    'pagado_hasta'    => new DateTime,
+                    'observaciones'    => 'No paga desde que nació. Y además le gustan los caballos.',
+                    'pagado_hasta'    => '2014-12-31',
                     'tipo_pago' =>  'anual',
 
                 ))

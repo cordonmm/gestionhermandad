@@ -43,9 +43,13 @@
                                                     <td><button disabled="" type="button" class="btn btn-sm btn-danger">Pagar</button></td>
                                                 </tr>
                                             @endforeach
-                                            @for($i = 1; $i <= Hermano::find(Auth::user()->id)->recibospendientes(); $i++)
+
+                                            {{--*/ $recibos= Hermano::find(Auth::user()->id)->recibospendientes() /*--}}
+                                            {{--*/$max = Recibo::where('hermano_id','=',Auth::user()->id)->max('id')/*--}}
+
+                                            @for($i = 1; $i <= $recibos ; $i = $i+1 )
                                                 <tr>
-                                                    <td>{{Recibo::where('hermano_id','=',Auth::user()->id)->max('id') + $i}}</td>
+                                                    <td>{{$max + $i}}</td>
                                                     {{--*/ $tipopago = Hermano::find(Auth::user()->id)->tipo_pago /*--}}
                                                     {{--*/ $cuantia = 0 /*--}}
 
@@ -54,7 +58,7 @@
                                                         {{--*/ $cuantia = Confighdad::first()->cuota /*--}}
                                                     @endif
                                                     @if($tipopago == 'semestral')
-                                                        <td>{{2-Hermano::find(Auth::user()->id)->recibospendientes()+ $i}}º semestre</td>
+                                                        <td>{{(2-$recibos)+ $i}}º semestre</td>
                                                         {{--*/ $cuantia = Confighdad::first()->cuota / 2 /*--}}
                                                     @endif
                                                     @if($tipopago == 'trimestral')
@@ -70,13 +74,14 @@
                                                     <td>---</td>
                                                     <td>{{$cuantia}}</td>
                                                     <td>Pendiente</td>
-                                                    @if($i = 1)
-                                                        <td><button enable="" type="button" class="btn btn-sm btn-danger">Pagar</button></td>
+                                                    @if($i ==  1)
+                                                        <td><button enable="" type="button" onclick="window.location.href = '{{URL::to('gestionhdad/pagarRecibo')}}';" class="btn btn-sm btn-danger">Pagar</button></td>
                                                     @else
                                                         <td><button disabled="" type="button" class="btn btn-sm btn-danger">Pagar</button></td>
                                                     @endif
 
                                                 </tr>
+
                                             @endfor
 
                                             </tbody>
