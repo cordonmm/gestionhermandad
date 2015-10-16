@@ -70,7 +70,7 @@ class AdminRecibosController extends BaseController{
                     $cuota = number_format($cuota/4,2,'.',',');
                     break;
                 case "mensual":
-                    $concepto =  ($hermano->recibospendientes()%12) + 1 .'º trimestre del año '. date('Y')+1-($hermano->recibospendientes()/12);
+                    $concepto =  ($hermano->recibospendientes()%12) + 1 .'º mes del año '. date('Y')+1-($hermano->recibospendientes()/12);
                     $cuota = number_format($cuota/12,2,'.',',');
                     break;
             }
@@ -216,19 +216,32 @@ class AdminRecibosController extends BaseController{
             switch($hermano->tipo_pago){
                 case "anual":
 
+                    $año = date('Y')+1-ceil($hermano->recibospendientes());
+                    $pagado = date('Y-m-d',strtotime($año.'-12-31'));
                     $concepto = 'Cuota año '.(date('Y')+1-$hermano->recibospendientes());
 
                     break;
                 case "semestral":
-                    $concepto =  (($hermano->recibospendientes()%2) + 1) .'º semestre del año '. (date('Y')+1-($hermano->recibospendientes()/2));
+                    $semestre= ($hermano->recibospendientes()%2) + 1;
+                    $año = date('Y')+1-ceil($hermano->recibospendientes()/2);
+                    $aux = $año.'-'.($semestre*6).'-28';
+
+                    $pagado = date('Y-m-d', strtotime($aux));
+                    $concepto =  $semestre.'º semestre del año '.$año;
                     $cuota = number_format($cuota/2,2,'.',',');
                     break;
                 case "trimestral":
-                    $concepto =  ($hermano->recibospendientes()%4) + 1 .'º trimestre del año '. date('Y')+1-($hermano->recibospendientes()/4);
+                    $trimestre = ($hermano->recibospendientes()%4) + 1;
+                    $año = date('Y')+1-ceil($hermano->recibospendientes()/4);
+                    $pagado = date('Y-m-d',strtotime($año.'-'.($trimestre*3).'-28'));
+                    $concepto =  $trimestre.'º trimestre del año '. $año;
                     $cuota = number_format($cuota/4,2,'.',',');
                     break;
                 case "mensual":
-                    $concepto =  ($hermano->recibospendientes()%12) + 1 .'º trimestre del año '. date('Y')+1-($hermano->recibospendientes()/12);
+                    $mes = ($hermano->recibospendientes()%12) + 1;
+                    $año = date('Y')+1-ceil($hermano->recibospendientes()/12);
+                    $pagado = date('Y-m-d',strtotime($año.'-'.$mes.'-28'));
+                    $concepto =  $mes .'º mes del año '. $año;
                     $cuota = number_format($cuota/12,2,'.',',');
                     break;
             }
@@ -237,6 +250,8 @@ class AdminRecibosController extends BaseController{
                 $recibo->total = $cuota;
                 $recibo->hermano_id = $hermano->id;
                 $recibo->save();
+                $hermano->pagado_hasta = $pagado;
+                $hermano->save();
 
                 return View::make('site/misrecibos')
                     ->with('success', 'Email sent successfully');
