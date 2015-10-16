@@ -140,6 +140,15 @@
                                         </div>
                                     </div>
 
+                                    @if(Auth::user()->hasRole('admin'))
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Fecha último pago</label>
+                                            <div class="col-lg-3">
+                                                <input readonly="" type="text" class="form-control" placeholder="Usuario" value="{{date('d/m/Y', strtotime($hermano->pagado_hasta))}}">
+                                            </div>
+                                        </div>
+                                    @endif
+
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">Observaciones</label>
                                         <div class="col-lg-10">

@@ -67,6 +67,9 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
     Route::get('hermanos/{hermano_id}/alta','AdminHermanosController@altaHermano');
 
     //INSIGNIAS
+    Route::get('insignia-reservada/{ri_id}/asignar','AdminInsigniasController@asignarReservaInsignia');
+    Route::get('insignia-reservada/{ri_id}/desasignar','AdminInsigniasController@desasignarReservaInsignia');
+    Route::get('insignia-reservada/{ri_id}/cancelar','AdminInsigniasController@cancelarReservaInsignia');
     Route::get('insignias/{insignia}/ficha','AdminInsigniasController@getFicha');
     Route::post('insignias/{insignia}/editar','AdminInsigniasController@insigniaEdit');
     Route::post('insignias/crear','AdminInsigniasController@insigniaCreate');
@@ -76,6 +79,7 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
         $fin_anyo_ant = $anyo_ant.'-12-31';
 
         $insignias = DB::table('reservas_insignia')
+            ->select('hermanos.nombre', 'hermanos.apellidos', 'hermanos.num_hermano', 'hermanos.fecha_alta', 'insignias.descripcion', 'reservas_insignia.fecha_solicitud', 'reservas_insignia.prioridad', 'reservas_insignia.estado', 'reservas_insignia.id as ri_id')
             ->join('hermanos', 'reservas_insignia.hermano_id', '=', 'hermanos.id')
             ->join('insignias', 'reservas_insignia.insignia_id', '=', 'insignias.id')
             ->where('fecha_solicitud','>', $fin_anyo_ant)

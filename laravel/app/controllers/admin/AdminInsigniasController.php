@@ -96,4 +96,43 @@ class AdminInsigniasController extends BaseController{
         return Redirect::to('gestionhdad/reserva-insignias')->with('success', Lang::get('admin/entradas/messages.create.success'));
     }
 
+    public function altaHermano($hermano_id)
+    {
+        $hermano = Hermano::find($hermano_id);
+
+        $hermano->activo = 1;
+
+        if($hermano->save())
+        {
+            return Redirect::to('gestionhdad/listado-hermanos')->with('success', 'Marcada como recogida corregida correctamente');
+        }
+    }
+
+
+    public function asignarReservaInsignia($ri_id)
+    {
+        DB::table('reservas_insignia')
+            ->where('id', $ri_id)
+            ->update(array('estado' => 'asignada'));
+
+        return Redirect::to('gestionhdad/listado-insignias-reservadas')->with('success', 'Reserva asignada correctamente');
+    }
+
+    public function desasignarReservaInsignia($ri_id)
+    {
+        DB::table('reservas_insignia')
+            ->where('id', $ri_id)
+            ->update(array('estado' => 'solicitada'));
+
+        return Redirect::to('gestionhdad/listado-insignias-reservadas')->with('success', 'Reserva desasignada correctamente');
+    }
+
+    public function cancelarReservaInsignia($ri_id)
+    {
+        DB::table('reservas_insignia')->where('id', '=', $ri_id)->delete();
+
+        return Redirect::to('gestionhdad/listado-insignias-reservadas')->with('success', 'Reserva cancelada correctamente');
+
+    }
+
 }
