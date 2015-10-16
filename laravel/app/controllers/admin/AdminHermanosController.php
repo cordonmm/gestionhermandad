@@ -87,7 +87,7 @@ class AdminHermanosController extends BaseController{
         $rules = array(
             'nombre'             => 'required|min:3',
             'apellidos'          => 'required|min:3',
-            'dni'          => 'required|min:3',
+            'dni'                => 'required|min:3',
             'fecha_nacimiento'   => 'required|min:3',
             'ccc'                => 'max:20',
             'tlf_fijo'           => 'numeric|max:999999999',
@@ -165,6 +165,30 @@ class AdminHermanosController extends BaseController{
         }
 
         return Redirect::to('gestionhdad/nuevo-hermano')->withInput()->withErrors($validator);
+    }
+
+    public function bajaHermano($hermano_id)
+    {
+        $hermano = Hermano::find($hermano_id);
+
+        $hermano->activo = 0;
+
+        if($hermano->save())
+        {
+            return Redirect::to('gestionhdad/listado-hermanos')->with('success', 'Marcada como recogida corregida correctamente');
+        }
+    }
+
+    public function altaHermano($hermano_id)
+    {
+        $hermano = Hermano::find($hermano_id);
+
+        $hermano->activo = 1;
+
+        if($hermano->save())
+        {
+            return Redirect::to('gestionhdad/listado-hermanos')->with('success', 'Marcada como recogida corregida correctamente');
+        }
     }
 
 }

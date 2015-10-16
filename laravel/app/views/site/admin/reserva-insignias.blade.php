@@ -32,26 +32,21 @@
                                     <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
                                     <!-- ./ csrf token -->
 
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label">Listado de Hermanos</label>
-                                        <div class="col-lg-10">
-                                                <!--
-
-                                                onchange="$('.js-example-basic-multiple').select2({maximumSelectionLength: $('.js-hermanos option:selected').attr('id')});"
-
-                                                alert($('.js-hermanos').val())
-                                                -->
-
-                                            <select onchange="$('.js-example-basic-multiple').select2({maximumSelectionLength: $('.js-hermanos option:selected').attr('id')});" name="hermano" style="width: 100%;" class="js-hermanos" required>
-                                                <option>Seleccione un hermano</option>
-                                                @foreach(Hermano::orderby('id','asc')->get() as $hermano)
-                                                    @if(count($hermano->insigniasReservadas) < 4)
-                                                    <option name="cantidad" value="{{$hermano->id}}" id="{{(4 - count($hermano->insigniasReservadas))}}">{{$hermano->nombre}} {{$hermano->apellidos}}</option>
-                                                    @endif
-                                                @endforeach
-                                            </select>
+                                    @if(Auth::user()->hasRole('admin'))
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Listado de Hermanos</label>
+                                            <div class="col-lg-10">
+                                                <select onchange="$('.js-example-basic-multiple').select2({maximumSelectionLength: $('.js-hermanos option:selected').attr('id')});" name="hermano" style="width: 100%;" class="js-hermanos" required>
+                                                    <option>Seleccione un hermano</option>
+                                                    @foreach(Hermano::orderby('id','asc')->get() as $hermano)
+                                                        @if(count($hermano->insigniasReservadas) < 4)
+                                                        <option name="cantidad" value="{{$hermano->id}}" id="{{(4 - count($hermano->insigniasReservadas))}}">{{$hermano->nombre}} {{$hermano->apellidos}}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endif
 
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">Listado Insignias</label>

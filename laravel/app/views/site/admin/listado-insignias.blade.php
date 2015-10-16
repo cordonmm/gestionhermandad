@@ -40,6 +40,8 @@
                                                     <td>{{$insignia->cantidad}}</td>
                                                     <td><a href="{{URL::to('gestionhdad/insignias/'.$insignia->id.'/ficha/')}}"><button type="button" class="btn btn-sm btn-danger">Ver</button></a></td>
                                                 </tr>
+
+
                                             @endforeach
                                             </tbody>
                                             <tfoot>

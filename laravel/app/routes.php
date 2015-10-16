@@ -34,9 +34,7 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
     Route::get('misrecibos', function () {
         return View::make('site/misrecibos');
     });
-    Route::get('papeleta', function () {
-        return View::make('site/papeleta');
-    });
+
     Route::get('nuevo-hermano', function () {
         return View::make('site/admin/nuevo-hermano');
     });
@@ -56,16 +54,51 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
         return View::make('site/admin/reserva-insignias');
     });
 
+
     //HERMANOS
     Route::get('hermanos/{hermano}/ficha','AdminHermanosController@getFicha');
     Route::post('hermanos/{hermano}/editar','AdminHermanosController@hermanoEdit');
     Route::post('hermanos/crear','AdminHermanosController@hermanoCreate');
+    Route::get('hermanos/{hermano_id}/baja','AdminHermanosController@bajaHermano');
+    Route::get('hermanos/{hermano_id}/alta','AdminHermanosController@altaHermano');
 
     //INSIGNIAS
     Route::get('insignias/{insignia}/ficha','AdminInsigniasController@getFicha');
     Route::post('insignias/{insignia}/editar','AdminInsigniasController@insigniaEdit');
     Route::post('insignias/crear','AdminInsigniasController@insigniaCreate');
     Route::post('insignias/reservar','AdminInsigniasController@insigniaReservas');
+    Route::get('listado-insignias-reservadas', function () {
+        $anyo_ant =  date('Y') - 1;
+        $fin_anyo_ant = $anyo_ant.'-12-31';
+
+        $insignias = DB::table('reservas_insignia')
+            ->join('hermanos', 'reservas_insignia.hermano_id', '=', 'hermanos.id')
+            ->join('insignias', 'reservas_insignia.insignia_id', '=', 'insignias.id')
+            ->where('fecha_solicitud','>', $fin_anyo_ant)
+            ->get();
+        return View::make('site/admin/listado-reservas-insignias', compact('insignias'));
+    });
+
+    //PAPELETAS
+    Route::get('papeleta', function () {
+        return View::make('site/papeleta');
+    });
+    Route::get('listado-papeletas', function () {
+        $anyo_ant =  date('Y') - 1;
+        $fin_anyo_ant = $anyo_ant.'-12-31';
+
+        $papeletas = DB::table('papeletas')
+            ->select('hermanos.nombre', 'hermanos.apellidos', 'hermanos.num_hermano', 'hermanos.fecha_alta', 'insignias.descripcion as idescrip', 'tipos_papeleta.descripcion as tpdescrip', 'papeletas.fecha_solicitud', 'papeletas.donativo', 'papeletas.observaciones', 'papeletas.recogida', 'papeletas.id as id_papeleta')
+            ->join('hermanos', 'papeletas.hermano_id', '=', 'hermanos.id')
+            ->join('insignias', 'papeletas.insignia_id', '=', 'insignias.id')
+            ->join('tipos_papeleta', 'papeletas.tipo_id', '=', 'tipos_papeleta.id')
+            ->where('fecha_solicitud','>', $fin_anyo_ant)
+            ->get();
+
+        return View::make('site/admin/listado-papeletas', compact('papeletas'));
+    });
+    Route::get('{papeleta_id}/cancelar-papeleta','AdminPapeletasController@cancelarPapeleta');
+    Route::get('{papeleta_id}/recogida','AdminPapeletasController@marcarPapeletaRecogida');
 
     //CONFIGURACION
     Route::post('configuracion/editar','AdminConfiguracionController@configuracionEdit');

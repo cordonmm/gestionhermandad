@@ -129,7 +129,10 @@ class Hermano extends Eloquent {
 
     public function insigniasReservadas()
     {
-        return $this->belongsToMany('Insignia', 'reservas_insignia','hermano_id','insignia_id');
+        $anyo_ant =  date('Y') - 1;
+        $fin_anyo_ant = $anyo_ant.'-12-31';
+
+        return $this->belongsToMany('Insignia', 'reservas_insignia','hermano_id','insignia_id')->wherePivot('fecha_solicitud', '>', $fin_anyo_ant);
     }
 
 

@@ -26,12 +26,7 @@
                                     <form class="form-horizontal" role="form">
 
                                         <!-- description -->
-                                        <div class="form-group">
-                                            <label class="control-label col-lg-2" for="sitedescription"> Observaciones</label>
-                                            <div class="col-lg-5">
-                                                <textarea class="form-control" rows="5" id="sitedescription"></textarea>
-                                            </div>
-                                        </div>
+
                                         <!-- Comments
                                         <div class="form-group">
                                           <label class="control-label col-lg-2">Comments</label>
@@ -59,12 +54,11 @@
                                         <div class="form-group">
                                             <label class="control-label col-lg-2">Ubicación </label>
                                             <div class="col-lg-7">
-                                                <div class="radio">
-                                                    <label><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"> Paso de Cristo</label>
-                                                </div>
-                                                <div class="radio">
-                                                    <label><input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"> Paso de Palio</label>
-                                                </div>
+                                                @foreach(Paso::orderby('id','asc')->get() as $paso)
+                                                    <div class="radio">
+                                                        <label><input type="radio" name="optionsRadios" id="optionsRadios1" value="{{$paso->id}}"> {{$paso->descripcion}}</label>
+                                                    </div>
+                                                @endforeach
                                             </div>
                                         </div>
 
@@ -72,20 +66,29 @@
                                         <div class="form-group">
                                             <label class="control-label col-lg-2">Portando </label>
                                             <div class="col-lg-4">
+
                                                 <select class="form-control">
-                                                    <option value='option1'>Cirio</option>
-                                                    <option value='option2'>Insignia</option>
-                                                    <option value='option3'>Costalero de Cristo</option>
-                                                    <option value='option3'>Costalero de Palio</option>
+                                                    @foreach(DB::table('tipos_papeleta')->orderby('id','asc')->get() as $tipo)
+                                                        <option value='{{$tipo->id}}'>{{$tipo->descripcion}}</option>
+                                                    @endforeach
                                                 </select>
+
                                             </div>
                                         </div>
 
                                         <!-- Name -->
                                         <div class="form-group">
-                                            <label class="control-label col-md-2" for="sitename"> Donativo</label>
+                                            <label class="control-label col-md-2" for="sitename"> Donativo</i></label>
                                             <div class="col-md-4">
                                                 <input min="0" type="number" class="form-control" id="sitename" placeholder="Introduzca un donativo si lo desea">
+                                            </div>
+                                            <label for="sitename">NOTA: si introduce un donativo tendrá que realizar el pago de éste.</label>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-2" for="sitedescription"> Observaciones</label>
+                                            <div class="col-lg-5">
+                                                <textarea class="form-control" rows="5" id="sitedescription"></textarea>
                                             </div>
                                         </div>
 
@@ -93,7 +96,7 @@
                                         <div class="form-group">
                                             <!-- Buttons -->
                                             <div class="col-lg-9 col-lg-offset-2">
-                                                <button type="submit" class="btn btn-info">Pagar ahora</button>
+                                                <button type="submit" class="btn btn-info">Reservar</button>
                                                 <button type="reset" class="btn btn-default">Limpiar</button>
                                             </div>
                                         </div>

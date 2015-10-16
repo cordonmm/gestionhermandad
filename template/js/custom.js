@@ -368,4 +368,8 @@ $(document).ready(function() {
 	$('#data-table-1').dataTable({
 	   "sPaginationType": "full_numbers"
 	});
+    $('#data-table-2').dataTable({
+        "sPaginationType": "full_numbers"
+    });
+
 });
