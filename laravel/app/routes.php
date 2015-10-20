@@ -74,6 +74,7 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
     Route::post('insignias/{insignia}/editar','AdminInsigniasController@insigniaEdit');
     Route::post('insignias/crear','AdminInsigniasController@insigniaCreate');
     Route::post('insignias/reservar','AdminInsigniasController@insigniaReservas');
+
     Route::get('listado-insignias-reservadas', function () {
         $anyo_ant =  date('Y') - 1;
         $fin_anyo_ant = $anyo_ant.'-12-31';
@@ -88,9 +89,7 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
     });
 
     //PAPELETAS
-    Route::get('papeleta', function () {
-        return View::make('site/papeleta');
-    });
+    Route::get('papeleta', 'AdminPapeletasController@papeletaCreate');
     Route::get('listado-papeletas', function () {
         $anyo_ant =  date('Y') - 1;
         $fin_anyo_ant = $anyo_ant.'-12-31';

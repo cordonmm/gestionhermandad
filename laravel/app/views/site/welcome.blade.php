@@ -3,7 +3,7 @@
 @section('content')
     <div class="matter">
         <div class="container">
-
+            @include('notifications')
             <div class="row">
 
                 <div class="col-md-12">

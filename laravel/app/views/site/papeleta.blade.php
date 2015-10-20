@@ -4,7 +4,7 @@
     <div class="matter">
         <div class="container">
 
-
+            @include('notifications')
 
 
             <div class="row">
@@ -23,7 +23,7 @@
 
                                 <div class="form quick-post">
                                     <!-- Quick setting form (not working)-->
-                                    <form class="form-horizontal" role="form">
+                                    <form class="form-horizontal" role="form" method="post" action="@if (isset($papeleta)){{ URL::to('gestionhdad/papeleta/' . $papeleta->id . '/editar') }}@endif" autocomplete="on">
 
                                         <!-- description -->
 
@@ -53,10 +53,14 @@
                                         <!-- Date Format -->
                                         <div class="form-group">
                                             <label class="control-label col-lg-2">Ubicación </label>
-                                            <div class="col-lg-7">
+                                            <div class="col-lg-7" >
                                                 @foreach(Paso::orderby('id','asc')->get() as $paso)
                                                     <div class="radio">
-                                                        <label><input type="radio" name="optionsRadios" id="optionsRadios1" value="{{$paso->id}}"> {{$paso->descripcion}}</label>
+                                                        @if(isset($papeleta) and $paso->id == $papeleta->paso->id)
+                                                            <label><input type="radio" name="paso" checked="checked"  value="{{$paso->id}}"> {{$paso->descripcion}}</label>
+                                                        @else
+                                                            <label><input type="radio" name="paso"  value="{{$paso->id}}"> {{$paso->descripcion}}</label>
+                                                        @endif
                                                     </div>
                                                 @endforeach
                                             </div>
@@ -67,9 +71,13 @@
                                             <label class="control-label col-lg-2">Portando </label>
                                             <div class="col-lg-4">
 
-                                                <select class="form-control">
+                                                <select class="form-control" id="tipos_papeleta">
                                                     @foreach(DB::table('tipos_papeleta')->orderby('id','asc')->get() as $tipo)
-                                                        <option value='{{$tipo->id}}'>{{$tipo->descripcion}}</option>
+                                                        @if(isset($papeleta) and $tipo->id == $papeleta->tipo->id)
+                                                            <option selected="selected" value='{{$tipo->id}}'>{{$tipo->descripcion}}</option>
+                                                        @else
+                                                            <option value='{{$tipo->id}}'>{{$tipo->descripcion}}</option>
+                                                        @endif
                                                     @endforeach
                                                 </select>
 
@@ -78,17 +86,17 @@
 
                                         <!-- Name -->
                                         <div class="form-group">
-                                            <label class="control-label col-md-2" for="sitename"> Donativo</i></label>
+                                            <label class="control-label col-md-2" for="donativo"> Donativo</i></label>
                                             <div class="col-md-4">
-                                                <input min="0" type="number" class="form-control" id="sitename" placeholder="Introduzca un donativo si lo desea">
+                                                <input min="0" type="number" class="form-control" id="donativo" placeholder="Introduzca un donativo si lo desea">
                                             </div>
                                             <label for="sitename">NOTA: si introduce un donativo tendrá que realizar el pago de éste.</label>
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label col-lg-2" for="sitedescription"> Observaciones</label>
+                                            <label class="control-label col-lg-2" for="observaciones"> Observaciones</label>
                                             <div class="col-lg-5">
-                                                <textarea class="form-control" rows="5" id="sitedescription"></textarea>
+                                                <textarea class="form-control" rows="5" id="observaciones">{{ Input::old('observaciones', isset($papeleta) ? HTML::decode($papeleta->observaciones) : null) }}</textarea>
                                             </div>
                                         </div>
 

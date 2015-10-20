@@ -194,10 +194,7 @@
                 @if(Auth::user()->hasRole('user'))
                     <li><a href="{{URL::to('gestionhdad/misdatos')}}"><i class="fa fa-file-o"></i> Mis datos</a></li>
                     <li><a href="{{URL::to('gestionhdad/misrecibos')}}"><i class="fa fa-table"></i> Mis recibos</a></li>
-                    @if($hoy >= $configuracion->fecha_inicio_insignias && $hoy <= $configuracion->fecha_fin_insignias)
-                        <li><a href="{{URL::to('gestionhdad/reserva-insignias')}}"><i class="fa fa-file-o"></i> Reserva de Insignias</a></li>
-                    @endif
-                    <li><a href="{{URL::to('gestionhdad/papeleta')}}"><i class="fa fa-tasks"></i> Papeleta de Sitio</a></li>
+
                 @endif
 
                 @if(Auth::user()->hasRole('admin'))
@@ -207,16 +204,18 @@
                                 <li><a href="{{URL::to('gestionhdad/listado-hermanos')}}"><i class="fa fa-file-o"></i> Listado Hermanos</a></li>
                             </ul>
                         </li>
-
+                    @endif
                         <li class="has_sub"><a href="#"><i class="fa fa-comment"></i> Insignias  <span class="pull-right"><i class="fa fa-chevron-right"></i></span></a>
                             <ul>
 
                                 @if($hoy >= $configuracion->fecha_inicio_insignias && $hoy <= $configuracion->fecha_fin_insignias)
                                     <li><a href="{{URL::to('gestionhdad/reserva-insignias')}}"><i class="fa fa-file-o"></i> Reserva de Insignias</a></li>
                                 @endif
-                                <li><a href="{{URL::to('gestionhdad/listado-insignias-reservadas')}}"><i class="fa fa-cube"></i> Listado Insignias Reservadas</a></li>
-                                <li><a href="{{URL::to('gestionhdad/nueva-insignia')}}"><i class="fa fa-file-o"></i> Nueva Insignia</a></li>
-                                <li><a href="{{URL::to('gestionhdad/listado-insignias')}}"><i class="fa fa-table"></i> Listado Insignias</a></li>
+                                @if(Auth::user()->hasRole('admin'))
+                                    <li><a href="{{URL::to('gestionhdad/listado-insignias-reservadas')}}"><i class="fa fa-cube"></i>Insignias Reservadas</a></li>
+                                    <li><a href="{{URL::to('gestionhdad/nueva-insignia')}}"><i class="fa fa-file-o"></i> Nueva Insignia</a></li>
+                                    <li><a href="{{URL::to('gestionhdad/listado-insignias')}}"><i class="fa fa-table"></i> Listado Insignias</a></li>
+                                @endif
                             </ul>
                         </li>
 
@@ -224,16 +223,16 @@
                             <ul>
 
                                 @if($hoy >= $configuracion->fecha_inicio_papeletas && $hoy <= $configuracion->fecha_fin_papeletas)
-                                    <li><a href="{{URL::to('gestionhdad/nueva-insignia')}}"><i class="fa fa-file-o"></i> Nueva Papeleta</a></li>
+                                    <li><a href="{{URL::to('gestionhdad/papeleta')}}"><i class="fa fa-file-o"></i> Nueva</a></li>
                                 @endif
-                                <li><a href="{{URL::to('gestionhdad/listado-papeletas')}}"><i class="fa fa-table"></i> Papeletas Solicitadas</a></li>
+                                <li><a href="{{URL::to('gestionhdad/listado-papeletas')}}"><i class="fa fa-table"></i> Solicitadas</a></li>
 
                             </ul>
                         </li>
 
-
+                    @if(Auth::user()->hasRole('admin'))
                         <li><a href="{{URL::to('gestionhdad/configuracion')}}"><i class="fa fa-code"></i> Configuración</a></li>
-                @endif
+                    @endif
             @endif
         </ul>
     </div>

@@ -13,5 +13,9 @@ class Paso extends Eloquent {
     {
         return $this->hasMany('Insignia', 'paso_id');
     }
+    public function papeletas()
+    {
+        return $this->hasMany('Papeleta', 'paso_id');
+    }
 
 }

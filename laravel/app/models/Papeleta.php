@@ -34,6 +34,11 @@ class Papeleta extends Eloquent {
         return $this->belongsTo('Insignia');
     }
 
+    public function paso()
+    {
+        return $this->belongsTo('Paso');
+    }
+
     public function hermano()
     {
         return $this->belongsTo('Hermano');
