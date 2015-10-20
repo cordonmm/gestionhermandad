@@ -7,6 +7,31 @@
             <div class="row">
 
                 <div class="col-md-12">
+                    <!-- List starts -->
+                    <ul class="today-datas">
+                        <!-- List #1 -->
+                        <li>
+                            <!-- Graph -->
+                            <div><span id="todayspark1" class="spark"><canvas width="77" height="30" style="display: inline-block; width: 77px; height: 30px; vertical-align: top;"></canvas></span></div>
+                            <!-- Text -->
+                            <div class="datas-text">12,000 visitors/day</div>
+                        </li>
+                        <li>
+                            <div><span id="todayspark2" class="spark"><canvas width="77" height="30" style="display: inline-block; width: 77px; height: 30px; vertical-align: top;"></canvas></span></div>
+                            <div class="datas-text">30,000 Pageviews</div>
+                        </li>
+                        <li>
+                            <div><span id="todayspark3" class="spark"><canvas width="77" height="30" style="display: inline-block; width: 77px; height: 30px; vertical-align: top;"></canvas></span></div>
+                            <div class="datas-text">15.66% Bounce Rate</div>
+                        </li>
+                        <li>
+                            <div><span id="todayspark4" class="spark"><canvas width="77" height="30" style="display: inline-block; width: 77px; height: 30px; vertical-align: top;"></canvas></span></div>
+                            <div class="datas-text">$12,000 Revenue/Day</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-12">
                     <!-- Widget -->
                     <div class="widget">
                         <!-- Widget title -->

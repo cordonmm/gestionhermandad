@@ -1,16 +1,11 @@
 @extends('site.layouts.default')
-
 @section('content')
     <div class="matter">
         <div class="container">
             @include('notifications')
             <div class="row">
-
                 <div class="col-md-12">
-
-
                     <div class="widget wgreen">
-
                         <div class="widget-head">
                             <div class="pull-left">RESERVA DE INSIGNIAS</div>
                             <div class="widget-icons pull-right">
@@ -19,20 +14,14 @@
                             </div>
                             <div class="clearfix"></div>
                         </div>
-
-
-
-
-
                         <div class="widget-content">
                             <div class="padd">
-
                                 <form class="form-horizontal" method="post" action="{{ URL::to('gestionhdad/insignias/reservar') }}" autocomplete="off">
                                     <!-- CSRF Token -->
                                     <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
                                     <!-- ./ csrf token -->
-
                                     @if(Auth::user()->hasRole('admin'))
+                                        {{--*/ $num_insignias = 4 /*--}}
                                         <div class="form-group">
                                             <label class="col-lg-2 control-label">Listado de Hermanos</label>
                                             <div class="col-lg-10">
@@ -46,56 +35,58 @@
                                                 </select>
                                             </div>
                                         </div>
+                                    @else
+                                        {{--*/ $hermano = Hermano::where('user_id','=', Auth::user()->id)->first() /*--}}
+                                        {{--*/  $num_insignias = (4 - count($hermano->insigniasReservadas)) /*--}}
+                                        <input type="hidden" readonly value="{{$hermano->id}}" name="hermano_id" >
                                     @endif
 
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label">Listado Insignias</label>
-                                        <div class="col-lg-10">
-
-                                            <select name="insignias[]" style="width: 100%;" class="js-example-basic-multiple" multiple="multiple">
-                                                @foreach(Paso::orderby('id','asc')->get() as $paso)
-                                                    @foreach(Insignia::where('paso_id', '=', $paso->id)->orderby('id','desc')->get() as $insignia)
-                                                        <option value="{{$insignia->id}}"><b>{{$paso->descripcion}}</b> - {{$insignia->descripcion}}</option>
+                                    @if($num_insignias == 0)
+                                        <div class="form-group">
+                                            <label class="col-lg-10">Ya ha reservado el máximo número de insignias. Puede anular alguna reserva en el menú de Mis Insignias Reservadas.</label>
+                                        </div>
+                                    @else
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Listado Insignias</label>
+                                            <div class="col-lg-10">
+                                                <select name="insignias[]" style="width: 100%;" class="js-example-basic-multiple" multiple="multiple">
+                                                    @foreach(Paso::orderby('id','asc')->get() as $paso)
+                                                        @foreach(Insignia::where('paso_id', '=', $paso->id)->orderby('id','desc')->get() as $insignia)
+                                                            <option value="{{$insignia->id}}"><b>{{$paso->descripcion}}</b> - {{$insignia->descripcion}}</option>
+                                                        @endforeach
                                                     @endforeach
-                                                @endforeach
-
-                                            </select>
+                                                </select>
+                                            </div>
                                         </div>
 
-
-                                    </div>
-
-                                    <div class="form-group">
-
-                                        <div class="col-lg-offset-2 col-lg-6">
-                                            <button type="submit" class="btn btn-sm btn-danger">Reservar</button>
+                                        <div class="form-group">
+                                            <div class="col-lg-offset-2 col-lg-6">
+                                                <button type="submit" class="btn btn-sm btn-danger">Reservar</button>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endif
+
+
 
                                 </form>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
 @stop
 @section('scripts')
-
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
     <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
-
     <script type="text/javascript">
         $(".js-example-basic-multiple").select2({
             placeholder: "Selecciona 4 insignias por orden de prioridad",
-            maximumSelectionLength: 4
+            maximumSelectionLength: "<?php echo $num_insignias; ?>"
         });
-
         $(".js-hermanos").select2({
             placeholder: "Selecciona un hermano",
         });
-
     </script>
 @stop

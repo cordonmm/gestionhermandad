@@ -105,7 +105,7 @@
 
                     <!-- Dropdown menu -->
                     <ul class="dropdown-menu">
-                        <li><a href="{{ URL::to('users/logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
+                        <li><a href="{{ URL::to('users/logout') }}"><i class="fa fa-sign-out"></i> Salir</a></li>
                     </ul>
                 </li>
 
@@ -145,20 +145,39 @@
             <div class="col-md-2">
                 <div class="header-data">
 
+                    <div class="hdata">
+                        <a href="{{URL::to('gestionhdad/misrecibos')}}">
+                            <div class="mcol-left">
+                                <!-- Icon with green background -->
+                                <i class="fa fa-money bred"></i>
+                            </div>
+                        </a>
+                        <div class="mcol-right">
+                            <!-- Number of visitors -->
+                            <a href="{{URL::to('gestionhdad/misrecibos')}}"><p>Hacer <em>donativo</em></p></a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
                     <!-- revenue data -->
                     <div class="hdata">
                         @if(Auth::check())
 
                             @if(Auth::user()->hasRole('user'))
-                        <div class="mcol-left">
-                            <!-- Icon with green background -->
-                            <i class="fa fa-money bred"></i>
-                        </div>
+                                <div class="mcol-left">
+                                    <!-- Icon with red background -->
+                                    <i class="fa fa-signal bred"></i>
+                                </div>
 
-                        <div class="mcol-right">
-                            <!-- Number of visitors -->
-                            <p><em>Recibos</em><a href="{{URL::to('gestionhdad/misrecibos')}}">{{Hermano::find(Auth::user()->id)->recibospendientes()}}</a></p>
-                        </div>
+
+                                <div class="mcol-right">
+                                    <!-- Number of visitors -->
+                                    <p><em>Recibos</em><a href="{{URL::to('gestionhdad/misrecibos')}}">{{Hermano::find(Auth::user()->id)->recibospendientes()}}</a></p>
+                                </div>
+
+
+
+
                             @endif
                         @endif
                         <div class="clearfix"></div>
@@ -194,9 +213,16 @@
                 @if(Auth::user()->hasRole('user'))
                     <li><a href="{{URL::to('gestionhdad/misdatos')}}"><i class="fa fa-file-o"></i> Mis datos</a></li>
                     <li><a href="{{URL::to('gestionhdad/misrecibos')}}"><i class="fa fa-table"></i> Mis recibos</a></li>
-                    @if($hoy >= $configuracion->fecha_inicio_insignias && $hoy <= $configuracion->fecha_fin_insignias)
-                        <li><a href="{{URL::to('gestionhdad/reserva-insignias')}}"><i class="fa fa-file-o"></i> Reserva de Insignias</a></li>
-                    @endif
+
+                    <li class="has_sub"><a href="#"><i class="fa fa-comment"></i> Insignias  <span class="pull-right"><i class="fa fa-chevron-right"></i></span></a>
+                        <ul>
+                            @if($hoy >= $configuracion->fecha_inicio_insignias && $hoy <= $configuracion->fecha_fin_insignias)
+                                <li><a href="{{URL::to('gestionhdad/reserva-insignias')}}"><i class="fa fa-file-o"></i> Reservar Insignias</a></li>
+                            @endif
+                            <li><a href="{{URL::to('gestionhdad/misinsignias')}}"><i class="fa fa-cube"></i> Mis Insignias Reservadas</a></li>
+                        </ul>
+                    </li>
+
                     <li><a href="{{URL::to('gestionhdad/papeleta')}}"><i class="fa fa-tasks"></i> Papeleta de Sitio</a></li>
                 @endif
 

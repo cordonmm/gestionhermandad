@@ -86,11 +86,23 @@ class AdminInsigniasController extends BaseController{
     {
         $insignias=Input::get("insignias");
 
+        if(Auth::user()->hasRole('admin'))
+            $hermano = Input::get('hermano');
+        else
+            $hermano = Input::get('hermano_id');
+
+        $max_prioridad = DB::table('reservas_insignia')
+            ->where('hermano_id', '=', Input::get('hermano_id'))
+            ->max('prioridad');
+
+        $cont = 1 ;
+
         for ($i=0; $i<count($insignias); $i++)
         {
             DB::table('reservas_insignia')->insert(array(
-                array('hermano_id' =>  Input::get('hermano'), 'insignia_id' => $insignias[$i], 'fecha_solicitud' => date('Y-m-d'), 'prioridad' => ($i+1), 'estado' => 'solicitada'),
+                array('hermano_id' =>  $hermano, 'insignia_id' => $insignias[$i], 'fecha_solicitud' => date('Y-m-d'), 'prioridad' => ($max_prioridad+$cont), 'estado' => 'solicitada'),
             ));
+            $cont++;
         }
 
         return Redirect::to('gestionhdad/reserva-insignias')->with('success', Lang::get('admin/entradas/messages.create.success'));
@@ -124,14 +136,37 @@ class AdminInsigniasController extends BaseController{
             ->where('id', $ri_id)
             ->update(array('estado' => 'solicitada'));
 
-        return Redirect::to('gestionhdad/listado-insignias-reservadas')->with('success', 'Reserva desasignada correctamente');
+        if(Auth::user()->hasRole('admin'))
+            return Redirect::to('gestionhdad/listado-insignias-reservadas')->with('success', 'Reserva desasignada correctamente');
+        else
+            return Redirect::to('gestionhdad/misinsignias')->with('success', 'Reserva desasignada correctamente');
     }
 
     public function cancelarReservaInsignia($ri_id)
     {
+        $priodidad_hermano = DB::table('reservas_insignia')
+            ->select('prioridad', 'hermano_id')
+            ->where('id', '=', $ri_id)
+            ->first();
+
+        $max_prioridad = DB::table('reservas_insignia')
+            ->where('hermano_id', '=', $priodidad_hermano->hermano_id)
+            ->max('prioridad');
+
+        for($i = (($priodidad_hermano->prioridad)+1); $i<=$max_prioridad; $i++){
+
+            DB::table('reservas_insignia')
+                ->where('hermano_id', '=', $priodidad_hermano->hermano_id)
+                ->where('prioridad', '=', $i)
+                ->decrement('prioridad', 1);
+        }
+
         DB::table('reservas_insignia')->where('id', '=', $ri_id)->delete();
 
-        return Redirect::to('gestionhdad/listado-insignias-reservadas')->with('success', 'Reserva cancelada correctamente');
+        if(Auth::user()->hasRole('admin'))
+            return Redirect::to('gestionhdad/listado-insignias-reservadas')->with('success', 'Reserva cancelada correctamente');
+        else
+            return Redirect::to('gestionhdad/misinsignias')->with('success', 'Reserva cancelada correctamente');
 
     }
 
