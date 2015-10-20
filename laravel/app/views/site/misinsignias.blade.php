@@ -54,7 +54,6 @@
                                                         </td>
                                                     @else
                                                         <td>
-                                                            <button type="button" data-toggle="modal" data-target="#asignar{{$insignia->ri_id}}" class="btn btn-sm btn-success">Asignar</button>
                                                             <button type="button" data-toggle="modal" data-target="#cancelar{{$insignia->ri_id}}" class="btn btn-sm btn-danger">Cancelar reserva</button>
                                                         </td>
                                                     @endif

@@ -88,6 +88,22 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
         return View::make('site/admin/listado-reservas-insignias', compact('insignias'));
     });
 
+    Route::get('misinsignias', function () {
+        $anyo_ant =  date('Y') - 1;
+        $fin_anyo_ant = $anyo_ant.'-12-31';
+
+        $user_id = Auth::user()->id;
+
+        $insignias = DB::table('reservas_insignia')
+            ->select('hermanos.nombre', 'hermanos.apellidos', 'hermanos.num_hermano', 'hermanos.fecha_alta', 'insignias.descripcion', 'reservas_insignia.fecha_solicitud', 'reservas_insignia.prioridad', 'reservas_insignia.estado', 'reservas_insignia.id as ri_id')
+            ->join('hermanos', 'reservas_insignia.hermano_id', '=', 'hermanos.id')
+            ->join('insignias', 'reservas_insignia.insignia_id', '=', 'insignias.id')
+            ->where('fecha_solicitud','>', $fin_anyo_ant)
+            ->where('user_id','=', $user_id)
+            ->get();
+        return View::make('site/misinsignias', compact('insignias'));
+    });
+
     //PAPELETAS
     Route::get('papeleta', 'AdminPapeletasController@papeletaCreate');
     Route::get('listado-papeletas', function () {
