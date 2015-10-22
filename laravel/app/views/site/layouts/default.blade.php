@@ -49,8 +49,10 @@
     <!-- Widgets stylesheet -->
     <link href="{{ asset('template/css/widgets.css')}}" rel="stylesheet">
 
-
-
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/blitzer/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css">
 
     @section('styles')
         @show
@@ -146,7 +148,7 @@
                 <div class="header-data">
 
                     <div class="hdata">
-                        <a href="{{URL::to('gestionhdad/misrecibos')}}">
+                        <a href="{{URL::to('gestionhdad/donativo')}}">
                             <div class="mcol-left">
                                 <!-- Icon with green background -->
                                 <i class="fa fa-money bred"></i>
@@ -154,7 +156,7 @@
                         </a>
                         <div class="mcol-right">
                             <!-- Number of visitors -->
-                            <a href="{{URL::to('gestionhdad/misrecibos')}}"><p>Hacer <em>donativo</em></p></a>
+                            <a href="{{URL::to('gestionhdad/donativo')}}"><p>Hacer <em>donativo</em></p></a>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -162,22 +164,16 @@
                     <!-- revenue data -->
                     <div class="hdata">
                         @if(Auth::check())
-
                             @if(Auth::user()->hasRole('user'))
                                 <div class="mcol-left">
                                     <!-- Icon with red background -->
                                     <i class="fa fa-signal bred"></i>
                                 </div>
 
-
                                 <div class="mcol-right">
                                     <!-- Number of visitors -->
                                     <p><em>Recibos</em><a href="{{URL::to('gestionhdad/misrecibos')}}">{{Hermano::find(Auth::user()->id)->recibospendientes()}}</a></p>
                                 </div>
-
-
-
-
                             @endif
                         @endif
                         <div class="clearfix"></div>
@@ -304,8 +300,7 @@
 <span class="totop"><a href="#"><i class="fa fa-chevron-up"></i></a></span>
 
 <!-- JS -->
-<script src="{{ asset('template/js/respond.min.js')}}"></script>
-<!--[if lt IE 9]>
+<script src="{{ asset('template/js/respond.min.js')}}"></script><!--[if lt IE 9]>
 <script src="{{ asset('template/js/html5shiv.js')}}"></script>
 <![endif]-->
 
@@ -319,15 +314,12 @@
 <script src="{{ asset('template/js/jquery.slimscroll.min.js')}}"></script> <!-- jQuery Slim Scroll -->
 <script src="{{ asset('template/js/jquery.dataTables.min.js')}}"></script> <!-- Data tables -->
 
-
-
 <!-- jQuery Flot -->
 <script src="{{ asset('template/js/excanvas.min.js')}}"></script>
 <script src="{{ asset('template/js/jquery.flot.js')}}"></script>
 <script src="{{ asset('template/js/jquery.flot.resize.js')}}"></script>
 <script src="{{ asset('template/js/jquery.flot.pie.js')}}"></script>
 <script src="{{ asset('template/js/jquery.flot.stack.js')}}"></script>
-
 
 <!-- jQuery Notification - Noty -->
 <!--<script src="{{ asset('template/js/jquery.noty.js')}}"></script>-->  <!-- jQuery Notify -->
@@ -344,10 +336,6 @@
 <script src="{{ asset('template/js/filter.js')}}"></script> <!-- Filter for support page -->
 <script src="{{ asset('template/js/custom.js')}}"></script> <!-- Custom codes -->
 <script src="{{ asset('template/js/charts.js')}}"></script> <!-- Charts & Graphs -->
-
-
-
-
 
 @yield('scripts')
 </body>

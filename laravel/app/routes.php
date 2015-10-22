@@ -53,11 +53,17 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
     Route::get('reserva-insignias', function () {
         return View::make('site/admin/reserva-insignias');
     });
+
+    Route::get('donativo', function () {
+        return View::make('site/donativo');
+    });
     Route::get('pagarRecibo', 'AdminRecibosController@getPayRecibo');
 
     Route::get('hermano/crearRecibo', 'AdminRecibosController@crearRecibo');
 
 
+    //NOTICIAS
+    Route::post('noticias/crear','AdminNoticiasController@noticiaCreate');
 
     //HERMANOS
     Route::get('hermanos/{hermano}/ficha','AdminHermanosController@getFicha');

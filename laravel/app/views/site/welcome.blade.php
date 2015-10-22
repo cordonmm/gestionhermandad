@@ -3,7 +3,7 @@
 @section('content')
     <div class="matter">
         <div class="container">
-
+            @include('notifications')
             <div class="row">
 
                 <div class="col-md-12">
@@ -36,10 +36,9 @@
                     <div class="widget">
                         <!-- Widget title -->
                         <div class="widget-head">
-                            <div class="pull-left">Comentarios recientes</div>
+                            <div class="pull-left">Úlimas noticias publicadas</div>
                             <div class="widget-icons pull-right">
                                 <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
-                                <a href="#" class="wclose"><i class="fa fa-times"></i></a>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -49,45 +48,22 @@
 
                                 <ul class="recent">
 
+                                    {{--*/ $noticias = Noticia::orderBy('created_at','desc')->paginate(2); /*--}}
 
-                                    <li>
+                                    @foreach($noticias as $noticia)
 
-                                        <div class="recent-content">
-                                            <div class="recent-meta">Posted on 25/1/2120 by Ashok</div>
-                                            <div>Vivamus diam elit diam, consectetur fermentum sed dapibus eget, Vivamus consectetur dapibus adipiscing elit.
+                                        <li>
+
+                                            <div class="recent-content">
+                                                <div class="recent-meta">Publicada el {{date("d-m-Y - h:i",strtotime($noticia->created_at))}}</div>
+                                                <div>{{$noticia->contenido}}</div>
+
+                                                <div class="clearfix"></div>
                                             </div>
-
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    @endforeach
 
 
-
-                                    <li>
-
-                                        <div class="recent-content">
-                                            <div class="recent-meta">Posted on 25/1/2120 by Ashok</div>
-                                            <div>Vivamus diam elit diam, consectetur fermentum sed dapibus eget, Vivamus consectetur dapibus adipiscing elit.
-                                            </div>
-
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </li>
-
-
-
-                                    <li>
-
-                                        <div class="recent-content">
-                                            <div class="recent-meta">Posted on 25/1/2120 by Ashok</div>
-                                            <div>Vivamus diam elit diam, consectetur fermentum sed dapibus eget, Vivamus consectetur dapibus adipiscing elit.
-                                            </div>
-
-
-
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </li>
 
 
                                 </ul>
@@ -97,13 +73,8 @@
                             <div class="widget-foot">
 
 
-                                <ul class="pagination pagination-sm pull-right">
-                                    <li><a href="#">Prev</a></li>
-                                    <li><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">Next</a></li>
+                                <ul class="pagination-list">
+                                    {{$noticias->links()}}
                                 </ul>
 
                                 <div class="clearfix"></div>
@@ -113,6 +84,66 @@
 
                     </div>
 
+                </div>
+
+
+                <div class="col-md-12">
+                    <div class="widget">
+                        <div class="widget-head">
+                            <div class="pull-left">Publicar noticia interna</div>
+                            <div class="widget-icons pull-right">
+                                <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="widget-content">
+                            <div class="padd">
+
+                                <div class="form quick-post">
+                                    <!-- Edit profile form (not working)-->
+                                    <form class="form-horizontal" method="post" action="{{ URL::to('gestionhdad/noticias/crear') }}" autocomplete="off">
+                                        <!-- CSRF Token -->
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                        <!-- ./ csrf token -->
+
+                                        <!-- Title -->
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-2" for="title">Título</label>
+                                            <div class="col-lg-8 {{ $errors->has('titulo') ? 'error' : '' }}">
+                                                <input name="titulo" type="text" class="form-control" id="title" value="{{ Input::old('titulo', isset($noticia) ? $noticia->titulo : null) }}">
+                                                {{ $errors->first('titulo', '<span class="help-block">:message</span>') }}
+                                            </div>
+                                        </div>
+                                        <!-- Content -->
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-2" for="content">Contenido</label>
+                                            <div class="col-lg-8 {{ $errors->has('contenido') ? 'error' : '' }}">
+                                                <textarea class="form-control" rows="5" id="content" name="contenido">
+                                                    {{ Input::old('contenido', isset($noticia) ? $noticia->contenido : null) }}
+                                                </textarea>
+                                                {{ $errors->first('contenido', '<span class="help-block">:message</span>') }}
+                                            </div>
+                                        </div>
+
+
+                                        <!-- Buttons -->
+                                        <div class="form-group">
+                                            <!-- Buttons -->
+                                            <div class="col-lg-offset-2 col-lg-6">
+                                                <button type="submit" class="btn btn-sm btn-success">Publicar</button>
+                                                <button type="reset" class="btn btn-sm btn-default">Limpiar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+
+                            </div>
+                            <div class="widget-foot">
+                                <!-- Footer goes here -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
