@@ -34,31 +34,28 @@ class AdminPapeletasController extends BaseController{
 
     public function papeletaCreate()
     {
-        /*$rules = array(
-            'descripcion'        => 'required|min:3',
-            'cantidad'           => 'required|numeric',
-        );
-
-        $validator = Validator::make(Input::all(), $rules);
-
-        if ($validator->passes())
-        {
-            $insignia = new Insignia();
-
-
-            $insignia->descripcion     = Input::get('descripcion');
-            $insignia->cantidad        = Input::get('cantidad');
-            $insignia->paso_id         = Input::get('paso_id');
-
-            if($insignia->save())
-            {
-                return Redirect::to('gestionhdad/insignias/' . $insignia->id . '/ficha')->with('success', Lang::get('admin/entradas/messages.create.success'));
+        $fecha_inicio_papeletas = Confighdad::first()->fecha_inicio_papeletas;
+        $fecha_fin_papeletas = Confighdad::first()->fecha_fin_papeletas;
+        $hoy = date('Y-m-d');
+        if($hoy >= $fecha_inicio_papeletas and $fecha_fin_papeletas >= $hoy){
+            if(Auth::user()->hasRole('admin')){
+                $hermanos = Hermano::where('activo','=',1)->get();
+                $papeleta = new Papeleta();
+                return View::make('site/papeleta', compact('hermanos','papeleta'));
             }
+            if(Auth::user()->hasRole('user')){
 
-            return Redirect::to('gestionhdad/nueva-insignia')->with('error', Lang::get('admin/entradas/messages.create.error'));
+
+                $papeleta = Papeleta::where('fecha_solicitud','>=',$fecha_inicio_papeletas)->where('fecha_solicitud','<=',$fecha_fin_papeletas)->first();
+                if(!isset($papeleta)){
+                    $papeleta = new Papeleta();
+                }
+                return View::make('site/papeleta', compact('papeleta'));
+            }
+        }else{
+            return Redirect::to('/gestionhdad/inicio')->with('error', 'No está permitido solicitar papelestas de sitio hasta el '.date('d-m-Y',strtotime($fecha_inicio_papeletas)));
         }
 
-        return Redirect::to('gestionhdad/nueva-insignia')->withInput()->withErrors($validator);*/
     }
 
 }

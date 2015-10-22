@@ -72,6 +72,7 @@ Route::filter('guest', function()
 
 Entrust::routeNeedsRole( 'gestionhdad*', array('admin','user'), Redirect::to('users/login'),false );
 Entrust::routeNeedsRole( 'gestionhdad/listado-hermanos', array('admin'), Redirect::to('gestionhdad'),false );
+Entrust::routeNeedsRole( 'gestionhdad/pagarAdmin', array('admin'), Redirect::to('gestionhdad'),false );
 
 
 /*
