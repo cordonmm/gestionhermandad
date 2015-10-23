@@ -48,6 +48,46 @@ class HermanosTableSeeder extends Seeder {
                     'pagado_hasta'    => '2014-12-31',
                     'tipo_pago' =>  'anual',
 
+                ),
+                array(
+                    'user_id'       => ($user_id + 2),
+                    'num_hermano'        => 12545,
+                    'nombre'        => 'Paco',
+                    'apellidos'     => 'Solis',
+                    'fecha_nacimiento'     => '1959/02/15',
+                    'fecha_alta'     => '1990/03/15',
+                    'ccc'     => '00490110111111111115',
+                    'direccion'  => 'Bailen, 3',
+                    'poblacion'     => 'Sevilla',
+                    'cp'    => 41701,
+                    'provincia'    => 'Sevilla',
+                    'dni'     => '48855559J',
+                    'tlf_fijo'     => 955556558,
+                    'tlf_movil'     => 612458547,
+                    'observaciones'    => 'No hay',
+                    'pagado_hasta'    => '2014-12-31',
+                    'tipo_pago' =>  'semestral',
+
+                ),
+                array(
+                    'user_id'       => ($user_id + 3),
+                    'num_hermano'        => 12545,
+                    'nombre'        => 'Javier',
+                    'apellidos'     => 'Cobos',
+                    'fecha_nacimiento'     => '1945/02/15',
+                    'fecha_alta'     => '1990/03/15',
+                    'ccc'     => '00490110111111111115',
+                    'direccion'  => 'Avda. de España, 3',
+                    'poblacion'     => 'Sevilla',
+                    'cp'    => 41701,
+                    'provincia'    => 'Sevilla',
+                    'dni'     => '47788889K',
+                    'tlf_fijo'     => 958788552,
+                    'tlf_movil'     => 678888999,
+                    'observaciones'    => 'Es el Mayordomo de la Hermandad',
+                    'pagado_hasta'    => '2014-12-31',
+                    'tipo_pago' =>  'anual',
+
                 ))
         );
     }

@@ -168,11 +168,150 @@
 
                 </div>
 
+                {{--*/ $familiares = $hermano->parentescos /*--}}
+
+                @if(count($familiares) != 0)
+                    <div class="col-md-12">
+                        <div class="widget wgreen">
+                            <div class="widget-headverde">
+                                <div class="pull-left">Familiares</div>
+                                <div class="widget-icons pull-right">
+                                    <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+                                    <!--<a href="#" class="wclose"><i class="fa fa-times"></i></a>-->
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <div class="widget-content">
+                                <div class="padd">
+                                    <div class="page-tables">
+                                        <div class="table-responsive">
+                                            <table cellpadding="0" cellspacing="0" border="0" id="data-table-2" width="100%">
+                                                <thead>
+                                                <tr>
+                                                    <th>Nombre</th>
+                                                    <th>Apellidos</th>
+                                                    <th>Fecha nacimiento</th>
+                                                    <th>Fecha alta</th>
+                                                    <th>DNI</th>
+                                                    <th>Pablación</th>
+                                                    <th>Teléfono fijo</th>
+                                                    <th>Teléfono Móvil</th>
+                                                    <th>Parentesco</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($familiares as $familiar)
+                                                    <tr>
+                                                        <td>{{$familiar->nombre}}</td>
+                                                        <td>{{$familiar->apellidos}}</td>
+                                                        <td>{{date('d/m/Y', strtotime($familiar->fecha_nacimiento))}}</td>
+                                                        <td>{{date('d/m/Y', strtotime($familiar->fecha_alta))}}</td>
+                                                        <td>{{$familiar->dni}}</td>
+                                                        <td>{{$familiar->poblacion}}</td>
+                                                        <td>{{$familiar->tlf_fijo}}</td>
+                                                        <td>{{$familiar->tlf_movil}}</td>
+                                                        <td>{{ucfirst($familiar->pivot->parentesco)}}</td>
+                                                        <td>
+                                                            <button onclick="window.location.href='{{URL::to('gestionhdad/hermanos/'.$familiar->id.'/ficha/')}}'" type="button" class="btn btn-sm btn-success">Ver</button>
+                                                            <button type="button" data-toggle="modal" data-target="#elimina" class="btn btn-sm btn-danger">Eliminar parentesco</button>
+                                                        </td>
+                                                    </tr>
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="elimina" role="dialog">
+                                                        <div class="modal-dialog modal-sm">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                    <h4 class="modal-title">¿Está seguro?</h4>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p>Va a eliminar un parentesco de {{"<b>".$hermano->nombre." ".$hermano->apellidos."</b> con <b>".$familiar->nombre." ".$familiar->apellidos."</b>"}}.</p>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button onclick="window.location.href='{{URL::to('gestionhdad/parentescos/'.$familiar->id.'/'.$hermano->id.'/eliminar/')}}'" type="button" class="btn btn-sm btn-success" data-dismiss="modal">Sí</button>
+
+                                                                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">No</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                                </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <th>Nombre</th>
+                                                    <th>Apellidos</th>
+                                                    <th>Fecha nacimiento</th>
+                                                    <th>Fecha alta</th>
+                                                    <th>DNI</th>
+                                                    <th>Pablación</th>
+                                                    <th>Teléfono fijo</th>
+                                                    <th>Teléfono Móvil</th>
+                                                    <th>Parentesco</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+                <div class="col-lg-12 col-lg-6">
+                    <button type="button" data-toggle="modal" data-target="#alta{{$hermano->id}}" class="btn btn-sm btn-success">Añadir parentesco</button>
+                </div>
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="alta{{$hermano->id}}" role="dialog">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Nuevo parentesco</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form-horizontal" method="post" action="{{ URL::to('gestionhdad/parentescos/' . $hermano->id . '/crear')}}" >
+
+                                    <label class="control-label">{{$hermano->nombre}} {{$hermano->apellidos}} es </label>
+
+                                    <select name="parentesco" class="form-control">
+                                        <option value="padre/madre">Padre/Madre de </option>
+                                        <option value="hijo">Hijo de </option>
+                                    </select>
+
+                                    <br>
+
+                                    <select style="width: 100%;" id="hermano_parentesco" name="hermano_parentesco" class="form-control">
+                                        @foreach(Hermano::where('id', '<>', $hermano->id)->whereNotIn('id', $hermano->parentescos->lists('id'))->get() as $aux)
+                                            <option value="{{$aux->id}}">{{$aux->num_hermano}} - {{$aux->nombre}} {{$aux->apellidos}}</option>
+                                        @endforeach
+                                    </select>
+
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-sm btn-success">Guardar</button>
+                                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                </form>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <br>
+
                 <div class="col-md-12">
-
-
                     <div class="widget wgreen">
-
                         <div class="widget-headrojo">
                             <div class="pull-left">Recibos cobrados</div>
                             <div class="widget-icons pull-right">
@@ -184,10 +323,7 @@
 
                         <div class="widget-content">
                             <div class="padd">
-
-                                <!-- Table Page -->
                                 <div class="page-tables">
-                                    <!-- Table -->
                                     <div class="table-responsive">
                                         <table cellpadding="0" cellspacing="0" border="0" id="data-table-1" width="100%">
                                             <thead>
@@ -198,7 +334,6 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-
                                             {{--*/ $recibos = Recibo::where('hermano_id','=',$hermano->id)->orderby('id','desc')->get() /*--}}
                                             @foreach($recibos as $recibo)
                                                 <tr>
@@ -220,15 +355,20 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
+                </div>
 
 
 
-            </div>
 
         </div>
     </div>
+
+    <script type="text/javascript">
+        $('#hermano_parentesco').select2({
+            placeholder: "Selecciona un hermano/a"
+        });
+
+    </script>
 @stop

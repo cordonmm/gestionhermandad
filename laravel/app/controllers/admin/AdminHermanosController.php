@@ -82,6 +82,43 @@ class AdminHermanosController extends BaseController{
 
     }
 
+    public function parentescoCreate($hermano_id)
+    {
+        DB::table('hermano_hermano')->insert(array(
+            array('hermano2_id' =>  $hermano_id, 'hermano1_id' => Input::get('hermano_parentesco'), 'parentesco' => Input::get('parentesco')),
+        ));
+
+        if(Input::get('parentesco') == 'padre/madre')
+        {
+            DB::table('hermano_hermano')->insert(array(
+                array('hermano1_id' =>  $hermano_id, 'hermano2_id' => Input::get('hermano_parentesco'), 'parentesco' => 'hijo'),
+            ));
+        }elseif(Input::get('parentesco') == 'hijo')
+        {
+            DB::table('hermano_hermano')->insert(array(
+                array('hermano1_id' =>  $hermano_id, 'hermano2_id' => Input::get('hermano_parentesco'), 'parentesco' => 'padre/madre'),
+            ));
+        }
+
+        return Redirect::to('gestionhdad/hermanos/' . $hermano_id . '/ficha')->withInput();
+
+    }
+
+    public function parentescoDelete($familiar_id, $hermano_id)
+    {
+        DB::table('hermano_hermano')
+            ->where('hermano1_id', '=', $familiar_id)
+            ->where('hermano2_id', '=', $hermano_id)
+            ->delete();
+
+        DB::table('hermano_hermano')
+            ->where('hermano1_id', '=', $hermano_id)
+            ->where('hermano2_id', '=', $familiar_id)
+            ->delete();
+
+        return Redirect::to('gestionhdad/hermanos/' . $hermano_id . '/ficha')->withInput();
+    }
+
     public function hermanoCreate()
     {
         $rules = array(

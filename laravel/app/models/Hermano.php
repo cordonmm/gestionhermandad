@@ -124,7 +124,7 @@ class Hermano extends Eloquent {
 
     public function parentescos()
     {
-        return $this->belongsToMany('Hermano', 'hermano_hermano','hermano1_id', 'hermano2_id');
+        return $this->belongsToMany('Hermano', 'hermano_hermano','hermano1_id', 'hermano2_id')->withPivot('parentesco');
     }
 
     public function insigniasReservadas()

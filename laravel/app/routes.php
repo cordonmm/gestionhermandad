@@ -69,6 +69,8 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
     Route::get('hermanos/{hermano}/ficha','AdminHermanosController@getFicha');
     Route::post('hermanos/{hermano}/editar','AdminHermanosController@hermanoEdit');
     Route::post('hermanos/crear','AdminHermanosController@hermanoCreate');
+    Route::post('parentescos/{hermano_id}/crear','AdminHermanosController@parentescoCreate');
+    Route::get('parentescos/{familiar_id}/{hermano_id}/eliminar','AdminHermanosController@parentescoDelete');
     Route::get('hermanos/{hermano_id}/baja','AdminHermanosController@bajaHermano');
     Route::get('hermanos/{hermano_id}/alta','AdminHermanosController@altaHermano');
 
