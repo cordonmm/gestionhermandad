@@ -27,7 +27,7 @@
 
                                 <br />
                                 <!-- Form starts.  -->
-                                <form class="form-horizontal" method="post" action="@if (isset($hermano)){{ URL::to('gestionhdad/hermanos/' . $hermano->id . '/editar') }}@endif" autocomplete="on">
+                                <form enctype="multipart/form-data" class="form-horizontal" method="post" action="@if (isset($hermano)){{ URL::to('gestionhdad/hermanos/' . $hermano->id . '/editar') }}@endif" autocomplete="on">
                                     <!-- CSRF Token -->
                                     <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
                                     <!-- ./ csrf token -->
@@ -126,28 +126,61 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-lg-2 control-label">Forma de pago</label>
+                                        <label class="col-lg-2 control-label">Sexo</label>
                                         <div class="col-lg-3">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="sexo" id="optionsRadios1" value="H" {{ $hermano->sexo == 'H' ? 'checked' : ''}} >Hombre
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="sexo" id="optionsRadios2" value="M" {{ $hermano->sexo == 'M' ? 'checked' : ''}}>Mujer
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <label class="col-lg-2 control-label">Forma de pago</label>
+                                        <div class="col-lg-5">
                                             <select name="tipo_pago" class="form-control">
                                                 <option {{ $hermano->tipo_pago == 'anual' ? 'selected' : ''}} value="anual">Anual</option>
                                                 <option {{ $hermano->tipo_pago == 'semestral' ? 'selected' : ''}} value="semestral">Semestral</option>
                                             </select>
                                         </div>
+                                    </div>
+
+                                    <div class="form-group">
                                         <label class="col-lg-2 control-label">Fecha de alta</label>
-                                        <div class="col-lg-5 {{{ $errors->has('fecha_alta') ? 'error' : '' }}}">
+                                        <div class="col-lg-3 {{{ $errors->has('fecha_alta') ? 'error' : '' }}}">
                                             <input name="fecha_alta" type="date" class="form-control" placeholder="dd/mm/aaaa" value="{{{ Input::old('fecha_alta', isset($hermano) ? date('Y-m-d', strtotime($hermano->fecha_alta)) : null) }}}"">
                                             {{ $errors->first('fecha_alta', '<span class="help-block">:message</span>') }}
                                         </div>
-                                    </div>
-
-                                    @if(Auth::user()->hasRole('admin'))
-                                        <div class="form-group">
+                                        @if(Auth::user()->hasRole('admin'))
                                             <label class="col-lg-2 control-label">Fecha último pago</label>
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-5">
                                                 <input readonly="" type="text" class="form-control" placeholder="Usuario" value="{{date('d/m/Y', strtotime($hermano->pagado_hasta))}}">
                                             </div>
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">Foto</label>
+                                        <div class="col-lg-3 {{{ $errors->has('foto') ? 'error' : '' }}}">
+                                            <input name="foto" type="file" class="form-control" value="{{{ Input::old('foto', isset($hermano) ? $hermano->foto : null) }}}"">
+                                            {{ $errors->first('foto', '<span class="help-block">:message</span>') }}
                                         </div>
-                                    @endif
+                                        @if($hermano->foto != '')
+                                            <label class="col-lg-2 control-label">Foto actual</label>
+                                            <div class="col-lg-3">
+                                                <img class="img-responsive" alt="Foto" src="{{asset($hermano->foto)}}" />
+                                            </div>
+                                        @endif
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                    </div>
 
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">Observaciones</label>

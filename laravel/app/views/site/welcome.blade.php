@@ -14,19 +14,22 @@
                             <!-- Graph -->
                             <div><span id="todayspark1" class="spark"><canvas width="77" height="30" style="display: inline-block; width: 77px; height: 30px; vertical-align: top;"></canvas></span></div>
                             <!-- Text -->
-                            <div class="datas-text">12,000 visitors/day</div>
+                            <div class="datas-text">12 cuotas pendientes</div>
                         </li>
-                        <li>
-                            <div><span id="todayspark2" class="spark"><canvas width="77" height="30" style="display: inline-block; width: 77px; height: 30px; vertical-align: top;"></canvas></span></div>
-                            <div class="datas-text">30,000 Pageviews</div>
-                        </li>
+
                         <li>
                             <div><span id="todayspark3" class="spark"><canvas width="77" height="30" style="display: inline-block; width: 77px; height: 30px; vertical-align: top;"></canvas></span></div>
-                            <div class="datas-text">15.66% Bounce Rate</div>
+                            <div class="datas-text">79 insignias reservadas</div>
                         </li>
+
+                        <li>
+                            <div><span id="todayspark2" class="spark"><canvas width="77" height="30" style="display: inline-block; width: 77px; height: 30px; vertical-align: top;"></canvas></span></div>
+                            <div class="datas-text">793 papeletas</div>
+                        </li>
+
                         <li>
                             <div><span id="todayspark4" class="spark"><canvas width="77" height="30" style="display: inline-block; width: 77px; height: 30px; vertical-align: top;"></canvas></span></div>
-                            <div class="datas-text">$12,000 Revenue/Day</div>
+                            <div class="datas-text">12 donativos realizados</div>
                         </li>
                     </ul>
                 </div>
@@ -50,13 +53,14 @@
 
                                     {{--*/ $noticias = Noticia::orderBy('created_at','desc')->paginate(2); /*--}}
 
-                                    @foreach($noticias as $noticia)
+                                    @foreach($noticias as $noti)
 
                                         <li>
 
                                             <div class="recent-content">
-                                                <div class="recent-meta">Publicada el {{date("d-m-Y - h:i",strtotime($noticia->created_at))}}</div>
-                                                <div>{{$noticia->contenido}}</div>
+                                                <div class="recent-meta">Publicada el {{date("d-m-Y - h:i",strtotime($noti->created_at))}}</div>
+                                                <h5>{{$noti->titulo}}</h5>
+                                                <div>{{$noti->contenido}}</div>
 
                                                 <div class="clearfix"></div>
                                             </div>
@@ -118,9 +122,7 @@
                                         <div class="form-group">
                                             <label class="control-label col-lg-2" for="content">Contenido</label>
                                             <div class="col-lg-8 {{ $errors->has('contenido') ? 'error' : '' }}">
-                                                <textarea class="form-control" rows="5" id="content" name="contenido">
-                                                    {{ Input::old('contenido', isset($noticia) ? $noticia->contenido : null) }}
-                                                </textarea>
+                                                <textarea class="form-control" rows="5" id="content" name="contenido">{{ Input::old('contenido', isset($noticia) ? $noticia->contenido : null) }}</textarea>
                                                 {{ $errors->first('contenido', '<span class="help-block">:message</span>') }}
                                             </div>
                                         </div>

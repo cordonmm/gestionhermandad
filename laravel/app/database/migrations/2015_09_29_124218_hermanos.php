@@ -22,6 +22,7 @@ class Hermanos extends Migration {
 			$table->integer('num_hermano');
 			$table->string('nombre');
 			$table->string('apellidos');
+			$table->char('sexo');
 			$table->date('fecha_nacimiento');
 			$table->date('fecha_alta');
 			$table->string('ccc');
@@ -32,6 +33,7 @@ class Hermanos extends Migration {
 			$table->string('dni');
 			$table->integer('tlf_fijo');
 			$table->integer('tlf_movil');
+			$table->string('foto');
 			$table->text('observaciones');
 			$table->date('pagado_hasta');
             $table->string('tipo_pago');

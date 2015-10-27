@@ -126,12 +126,33 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-lg-2 control-label">Forma de pago</label>
+                                        <label class="col-lg-2 control-label">Sexo</label>
                                         <div class="col-lg-3">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="sexo" id="optionsRadios1" value="H" checked="">Hombre
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="sexo" id="optionsRadios2" value="M">Mujer
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <label class="col-lg-2 control-label">Forma de pago</label>
+                                        <div class="col-lg-5">
                                             <select name="tipo_pago" class="form-control">
                                                 <option value="anual">Anual</option>
                                                 <option value="semestral">Semestral</option>
                                             </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">Foto</label>
+                                        <div class="col-lg-3 {{{ $errors->has('foto') ? 'error' : '' }}}">
+                                            <input name="logo" type="file" class="form-control" value="{{{ Input::old('foto', isset($hermano) ? $hermano->foto : null) }}}"">
+                                            {{ $errors->first('foto', '<span class="help-block">:message</span>') }}
                                         </div>
                                     </div>
 

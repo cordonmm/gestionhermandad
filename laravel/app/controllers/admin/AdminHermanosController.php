@@ -42,13 +42,27 @@ class AdminHermanosController extends BaseController{
             $user = User::find($hermano->user_id);
             // Update the entrada post data
 
+            $ruta = '';
+
+            if(Input::file('foto'))
+            {
+                $target_dir = public_path()."/template/fotos_hermanos";
+                $fileName = $hermano->id.'.png';
+
+                $ruta = '/template/fotos_hermanos/'.$fileName;
+
+                Input::file('foto')->move($target_dir, $fileName);
+            }
+
             $hermano->nombre            = Input::get('nombre');
             $hermano->apellidos         = Input::get('apellidos');
+            $hermano->sexo              = Input::get('sexo');
             $hermano->fecha_nacimiento  = Input::get('fecha_nacimiento');
             $hermano->fecha_alta        = Input::get('fecha_alta');
             $hermano->ccc               = Input::get('ccc');
             $hermano->tlf_fijo          = Input::get('tlf_fijo');
             $hermano->tlf_movil         = Input::get('tlf_movil');
+            $hermano->foto              = $ruta;
             $user->email                = Input::get('email');
             $hermano->direccion         = Input::get('direccion');
             $hermano->poblacion         = Input::get('poblacion');
@@ -144,7 +158,6 @@ class AdminHermanosController extends BaseController{
         {
             $hermano = new Hermano();
 
-
             $username = 'hermano'.($num_hermano+1);
             $pass = str_random(6);
 
@@ -166,6 +179,7 @@ class AdminHermanosController extends BaseController{
                 $hermano->num_hermano       = ($num_hermano+1);
                 $hermano->nombre            = Input::get('nombre');
                 $hermano->apellidos         = Input::get('apellidos');
+                $hermano->sexo              = Input::get('sexo');
                 $hermano->fecha_nacimiento  = Input::get('fecha_nacimiento');
                 $hermano->fecha_alta        = date('Y-m-d');
                 $hermano->ccc               = Input::get('ccc');
@@ -181,6 +195,22 @@ class AdminHermanosController extends BaseController{
 
                 if($hermano->save())
                 {
+                    $hermano = Hermano::where('user_id', '=', $user->id)->first();
+                    $ruta = '';
+
+                    if(Input::file('foto'))
+                    {
+                        $target_dir = public_path()."/template/fotos_hermanos";
+                        $fileName = $hermano->id.'.png';
+
+                        $ruta = '/template/fotos_hermanos/'.$fileName;
+
+                        Input::file('foto')->move($target_dir, $fileName);
+
+                        $hermano->foto = $ruta;
+                        $hermano->save();
+                    }
+
                     if (Config::get('confide::signup_email')) {
                         Mail::queueOn(
                             Config::get('confide::email_queue'),
