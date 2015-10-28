@@ -32,6 +32,18 @@ class AdminPapeletasController extends BaseController{
         }
     }
 
+    public function desmarcarPapeletaRecogida($papeleta_id)
+    {
+        $papeleta = Papeleta::find($papeleta_id);
+
+        $papeleta->recogida = 0;
+
+        if($papeleta->save())
+        {
+            return Redirect::to('gestionhdad/listado-papeletas')->with('success', 'Marcada como recogida corregida correctamente');
+        }
+    }
+
     public function papeletaCreate()
     {
         $fecha_inicio_papeletas = Confighdad::first()->fecha_inicio_papeletas;

@@ -148,6 +148,7 @@ class AdminHermanosController extends BaseController{
             'poblacion'          => 'required|min:3',
             'cp'                 => 'required|numeric|max:99999',
             'provincia'          => 'required|min:3',
+            'foto'               => 'required',
         );
 
         $num_hermano = DB::table('hermanos')->max('num_hermano');
@@ -185,6 +186,7 @@ class AdminHermanosController extends BaseController{
                 $hermano->ccc               = Input::get('ccc');
                 $hermano->tlf_fijo          = Input::get('tlf_fijo');
                 $hermano->tlf_movil         = Input::get('tlf_movil');
+                $hermano->foto              = '';
                 $hermano->direccion         = Input::get('direccion');
                 $hermano->poblacion         = Input::get('poblacion');
                 $hermano->cp                = Input::get('cp');
@@ -195,20 +197,19 @@ class AdminHermanosController extends BaseController{
 
                 if($hermano->save())
                 {
-                    $hermano = Hermano::where('user_id', '=', $user->id)->first();
-                    $ruta = '';
-
                     if(Input::file('foto'))
                     {
+                        $hermano_nuevo = Hermano::where('user_id', '=', $user->id)->first();
+
                         $target_dir = public_path()."/template/fotos_hermanos";
-                        $fileName = $hermano->id.'.png';
+                        $fileName = $hermano_nuevo->id.'.png';
 
                         $ruta = '/template/fotos_hermanos/'.$fileName;
 
                         Input::file('foto')->move($target_dir, $fileName);
 
-                        $hermano->foto = $ruta;
-                        $hermano->save();
+                        $hermano_nuevo->foto = $ruta;
+                        $hermano_nuevo->save();
                     }
 
                     if (Config::get('confide::signup_email')) {

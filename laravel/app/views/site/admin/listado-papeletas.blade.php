@@ -53,7 +53,7 @@
                                                     @if($papeleta->recogida == 1)
                                                         <td>Sí</td>
                                                         <td>
-                                                            <button disabled type="button" data-toggle="modal" data-target="#recoge{{$papeleta->id_papeleta}}" class="btn btn-sm btn-success">Marcar como recogida</button>
+                                                            <button type="button" data-toggle="modal" data-target="#norecoge{{$papeleta->id_papeleta}}" class="btn btn-sm btn-warning">Desmarcar como recogida</button>
                                                             <button type="button" data-toggle="modal" data-target="#cancela{{$papeleta->id_papeleta}}" class="btn btn-sm btn-danger">Cancelar</button>
                                                         </td>
                                                     @else
@@ -101,6 +101,26 @@
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button onclick="window.location.href='{{URL::to('gestionhdad/'.$papeleta->id_papeleta.'/recogida/')}}'" type="button" class="btn btn-sm btn-success" data-dismiss="modal">Sí</button>
+
+                                                                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">No</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="norecoge{{$papeleta->id_papeleta}}" role="dialog">
+                                                    <div class="modal-dialog modal-sm">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                <h4 class="modal-title">¿Está seguro?</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p>Va a desmarcar la papeleta número {{$papeleta->id_papeleta}} como recogida.</p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button onclick="window.location.href='{{URL::to('gestionhdad/'.$papeleta->id_papeleta.'/norecogida/')}}'" type="button" class="btn btn-sm btn-success" data-dismiss="modal">Sí</button>
 
                                                                 <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">No</button>
                                                             </div>

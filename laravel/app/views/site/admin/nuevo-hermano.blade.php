@@ -27,7 +27,7 @@
 
                                 <br />
                                 <!-- Form starts.  -->
-                                <form class="form-horizontal" method="post" action="{{ URL::to('gestionhdad/hermanos/crear') }}" autocomplete="on">
+                                <form enctype="multipart/form-data" class="form-horizontal" method="post" action="{{ URL::to('gestionhdad/hermanos/crear') }}" autocomplete="on">
                                     <!-- CSRF Token -->
                                     <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
                                     <!-- ./ csrf token -->
@@ -151,7 +151,7 @@
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label">Foto</label>
                                         <div class="col-lg-3 {{{ $errors->has('foto') ? 'error' : '' }}}">
-                                            <input name="logo" type="file" class="form-control" value="{{{ Input::old('foto', isset($hermano) ? $hermano->foto : null) }}}"">
+                                            <input name="foto" type="file" class="form-control" value="{{{ Input::old('foto', isset($hermano) ? $hermano->foto : null) }}}"">
                                             {{ $errors->first('foto', '<span class="help-block">:message</span>') }}
                                         </div>
                                     </div>

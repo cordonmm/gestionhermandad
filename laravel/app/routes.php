@@ -35,6 +35,10 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
         return View::make('site/misrecibos');
     });
 
+    Route::get('recibos-pendientes', function () {
+        return View::make('site/admin/recibos-pendientes');
+    });
+
     Route::get('nuevo-hermano', function () {
         return View::make('site/admin/nuevo-hermano');
     });
@@ -130,6 +134,7 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
     });
     Route::get('{papeleta_id}/cancelar-papeleta','AdminPapeletasController@cancelarPapeleta');
     Route::get('{papeleta_id}/recogida','AdminPapeletasController@marcarPapeletaRecogida');
+    Route::get('{papeleta_id}/norecogida','AdminPapeletasController@desmarcarPapeletaRecogida');
 
     //CONFIGURACION
     Route::post('configuracion/editar','AdminConfiguracionController@configuracionEdit');

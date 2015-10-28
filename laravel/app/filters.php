@@ -71,8 +71,18 @@ Route::filter('guest', function()
 });
 
 Entrust::routeNeedsRole( 'gestionhdad*', array('admin','user'), Redirect::to('users/login'),false );
+
+// FILTROS ADMINISTRACIÓN
 Entrust::routeNeedsRole( 'gestionhdad/listado-hermanos', array('admin'), Redirect::to('gestionhdad'),false );
-Entrust::routeNeedsRole( 'gestionhdad/pagarAdmin', array('admin'), Redirect::to('gestionhdad'),false );
+Entrust::routeNeedsRole( 'gestionhdad/nuevo-hermano', array('admin'), Redirect::to('gestionhdad'),false );
+Entrust::routeNeedsRole( 'gestionhdad/listado-insignias-reservadas', array('admin'), Redirect::to('gestionhdad'),false );
+Entrust::routeNeedsRole( 'gestionhdad/nueva-insignia', array('admin'), Redirect::to('gestionhdad'),false );
+Entrust::routeNeedsRole( 'gestionhdad/listado-insignias', array('admin'), Redirect::to('gestionhdad'),false );
+Entrust::routeNeedsRole( 'gestionhdad/listado-papeletas', array('admin'), Redirect::to('gestionhdad'),false );
+Entrust::routeNeedsRole( 'gestionhdad/configuracion', array('admin'), Redirect::to('gestionhdad'),false );
+
+
+
 
 
 /*
