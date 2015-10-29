@@ -116,8 +116,13 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
         return View::make('site/misinsignias', compact('insignias'));
     });
 
+    //Cofradia
+    Route::get('cofradia', function () {
+        return View::make('site/cofradia');
+    });
     //PAPELETAS
     Route::get('papeleta', 'AdminPapeletasController@papeletaCreate');
+    Route::post('papeleta', 'AdminPapeletasController@postCreate');
     Route::get('listado-papeletas', function () {
         $anyo_ant =  date('Y') - 1;
         $fin_anyo_ant = $anyo_ant.'-12-31';

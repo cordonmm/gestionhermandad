@@ -18,12 +18,13 @@ class Papeletas extends Migration {
 			$table->increments('id')->unsigned();
 			$table->integer('hermano_id')->unsigned();
 			$table->integer('tipo_id')->unsigned();
-			$table->integer('insignia_id')->unsigned();
+			$table->integer('insignia_id')->unsigned()->nullable();
             $table->integer('paso_id')->unsigned();
-			$table->text('observaciones');
+			$table->text('observaciones')->nullable();
 			$table->date('fecha_solicitud');
-			$table->float('donativo');
+			$table->float('donativo')->nullable();
 			$table->boolean('recogida')->default(false);
+            $table->boolean('simbolica')->default(false);
 			$table->foreign('tipo_id')->references('id')->on('tipos_papeleta');
 			$table->foreign('insignia_id')->references('id')->on('insignias');
             $table->foreign('paso_id')->references('id')->on('pasos');

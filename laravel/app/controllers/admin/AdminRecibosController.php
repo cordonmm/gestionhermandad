@@ -17,8 +17,8 @@ use PayPal\Api\Transaction;
 class AdminRecibosController extends BaseController{
 
     private $_api_context;
-    private $_ClientId='Aa0BtroJLEGpokG2qdAlvgYATyKXBnqrNKoCzKQtlAYJalzuHLvYu0EV4Uh_a0iDBop5gCK3fsg4L2_u';
-    private $_ClientSecret='EENTy6-RE7R_c3_JNKGx-nUuPc2IqWedG4Nu0Awc_6tzrDXyrUk8OKyembHQsmTwxB3NjM3IhyhQgnTN';
+    private $_ClientId='AQe9z3SXB_oTk2KwMI204QyZ7FZtaZKGP-l4V6z5zwYemBH5CHjskoRcwkuQnnWjdjS1VG_PLNvOAMIj';
+    private $_ClientSecret='EN2swwMeiaj2HUr2Z6Fx8K0RoKRE4Du95xqqXhsWb3m1Bo0Zqvsu7rx6sFJcIbWURcd-Fz0M5snT2hpb';
 
     protected $recibo;
 

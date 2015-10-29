@@ -62,11 +62,11 @@
                                                         {{--*/ $cuantia = Confighdad::first()->cuota / 2 /*--}}
                                                     @endif
                                                     @if($tipopago == 'trimestral')
-                                                        <td>{{4-Hermano::find(Auth::user()->id)->recibospendientes()+ $i}}º trimestre</td>
+                                                        <td>{{4-Hermano::where('user_id','=',Auth::user()->id)->first()->recibospendientes()+ $i}}º trimestre</td>
                                                         {{--*/ $cuantia = Confighdad::first()->cuota/4 /*--}}
                                                     @endif
                                                     @if($tipopago == 'mensual')
-                                                        <td>{{12-Hermano::find(Auth::user()->id)->recibospendientes()+ $i}}º mes</td>
+                                                        <td>{{12-Hermano::where('user_id','=',Auth::user()->id)->first()->recibospendientes()+ $i}}º mes</td>
                                                         {{--*/ $cuantia = Confighdad::first()->cuota/12 /*--}}
                                                     @endif
 

@@ -25,7 +25,7 @@
 
 
     <!-- Stylesheets -->
-    <link href="{{ asset('template/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('template/css/bootstrap.css')}}" rel="stylesheet">
     <!-- Font awesome icon -->
     <link rel="stylesheet" href="{{ asset('template/css/font-awesome.min.css')}}">
     <!-- jQuery UI -->
@@ -52,7 +52,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/blitzer/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <link rel="stylesheet" href="/resources/demos/style.css">
+
 
     <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
@@ -175,7 +175,7 @@
 
                                 <div class="mcol-right">
                                     <!-- Number of visitors -->
-                                    <p><em>Recibos</em><a href="{{URL::to('gestionhdad/misrecibos')}}">{{Hermano::find(Auth::user()->id)->recibospendientes()}}</a></p>
+                                    <p><em>Recibos</em><a href="{{URL::to('gestionhdad/misrecibos')}}">{{Hermano::where('user_id','=',Auth::user()->id)->first()->recibospendientes()}}</a></p>
                                 </div>
                             @endif
                         @endif
@@ -213,14 +213,7 @@
                     <li><a href="{{URL::to('gestionhdad/misdatos')}}"><i class="fa fa-file-o"></i> Mis datos</a></li>
                     <li><a href="{{URL::to('gestionhdad/misrecibos')}}"><i class="fa fa-table"></i> Mis recibos</a></li>
 
-                    <li class="has_sub"><a href="#"><i class="fa fa-comment"></i> Insignias  <span class="pull-right"><i class="fa fa-chevron-right"></i></span></a>
-                        <ul>
-                            @if($hoy >= $configuracion->fecha_inicio_insignias && $hoy <= $configuracion->fecha_fin_insignias)
-                                <li><a href="{{URL::to('gestionhdad/reserva-insignias')}}"><i class="fa fa-file-o"></i> Reservar Insignias</a></li>
-                            @endif
-                            <li><a href="{{URL::to('gestionhdad/misinsignias')}}"><i class="fa fa-cube"></i> Mis Insignias Reservadas</a></li>
-                        </ul>
-                    </li>
+
 
                     <li><a href="{{URL::to('gestionhdad/papeleta')}}"><i class="fa fa-tasks"></i> Papeleta de Sitio</a></li>
                 @endif
@@ -239,6 +232,7 @@
                                 @if($hoy >= $configuracion->fecha_inicio_insignias && $hoy <= $configuracion->fecha_fin_insignias)
                                     <li><a href="{{URL::to('gestionhdad/reserva-insignias')}}"><i class="fa fa-file-o"></i> Reserva de Insignias</a></li>
                                 @endif
+                                    <li><a href="{{URL::to('gestionhdad/misinsignias')}}"><i class="fa fa-cube"></i> Mis Insignias Reservadas</a></li>
                                 @if(Auth::user()->hasRole('admin'))
                                     <li><a href="{{URL::to('gestionhdad/listado-insignias-reservadas')}}"><i class="fa fa-cube"></i>Insignias Reservadas</a></li>
                                     <li><a href="{{URL::to('gestionhdad/nueva-insignia')}}"><i class="fa fa-file-o"></i> Nueva Insignia</a></li>
@@ -259,6 +253,7 @@
                         </li>
 
                     @if(Auth::user()->hasRole('admin'))
+                        <li><a href="{{URL::to('gestionhdad/cofradia')}}"><i class="fa fa-group"></i> Organizar cofradia</a></li>
                         <li><a href="{{URL::to('gestionhdad/configuracion')}}"><i class="fa fa-code"></i> Configuración</a></li>
                     @endif
             @endif

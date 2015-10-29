@@ -344,6 +344,18 @@ img {
   max-width: 100%;
   height: auto;
 }
+.customThumbnail {
+    padding: 4px;
+    line-height: 1.42857143;
+
+    border-radius: 2px;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+}
 .img-circle {
   border-radius: 50%;
 }

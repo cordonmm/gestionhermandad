@@ -18,6 +18,11 @@ class Papeleta extends Eloquent {
     {
         return $this->donativo;
     }
+    public function simbolica()
+    {
+        return $this->simbolica;
+    }
+
 
     public function recogida()
     {
