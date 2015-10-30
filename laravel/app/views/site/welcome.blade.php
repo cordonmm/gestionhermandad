@@ -60,7 +60,7 @@
                                             <div class="recent-content">
                                                 <div class="recent-meta">Publicada el {{date("d-m-Y - h:i",strtotime($noti->created_at))}}</div>
                                                 <h5>{{$noti->titulo}}</h5>
-                                                <div>{{$noti->contenido}}</div>
+                                                <div align="justify">{{$noti->contenido}}</div>
 
                                                 <div class="clearfix"></div>
                                             </div>

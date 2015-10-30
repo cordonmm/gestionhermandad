@@ -27,7 +27,7 @@
                                             <div class="col-lg-10">
                                                 <select onchange="$('.js-example-basic-multiple').select2({maximumSelectionLength: $('.js-hermanos option:selected').attr('id')});" name="hermano" style="width: 100%;" class="js-hermanos" required>
                                                     <option>Seleccione un hermano</option>
-                                                    @foreach(Hermano::orderby('id','asc')->get() as $hermano)
+                                                    @foreach(Hermano::where('activo', '=', 1)->orderby('id','asc')->get() as $hermano)
                                                         @if(count($hermano->insigniasReservadas) < 4)
                                                         <option name="cantidad" value="{{$hermano->id}}" id="{{(4 - count($hermano->insigniasReservadas))}}">{{$hermano->nombre}} {{$hermano->apellidos}}</option>
                                                         @endif

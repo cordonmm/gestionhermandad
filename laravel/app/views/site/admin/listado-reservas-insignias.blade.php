@@ -92,7 +92,7 @@
                                                                 <p>Va a asignar la reserva de insignia número {{$insignia->ri_id}} al hermano/a {{$insignia->nombre}} {{$insignia->apellidos}}.</p>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button onclick="window.location.href='{{URL::to('gestionhdad/insignia-reservada/'.$insignia->ri_id.'/asignar/')}}'" type="button" class="btn btn-sm btn-success" data-dismiss="modal">Sí</button>
+                                                                <button onclick="window.location.href='{{URL::to('gestionhdad/insignia-reservada/'.$insignia->ri_id.'/'.$insignia->i_id.'/'.$insignia->h_id.'/asignar/')}}'" type="button" class="btn btn-sm btn-success" data-dismiss="modal">Sí</button>
 
                                                                 <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">No</button>
                                                             </div>
@@ -146,9 +146,41 @@
                         </div>
                         <div class="widget-foot">
 
+
+
                         </div>
                     </div>
                 </div>
+
+            </div>
+
+
+        </div>
+        <div class="col-lg-12 col-lg-6">
+            <button type="button" data-toggle="modal" data-target="#asignacion" class="btn btn-sm btn-success">Asignar automáticamente</button>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="asignacion" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Asignación de insignias automáticamente</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body">
+                        <p>Va a proceder con la asignación automática de insignias, a los hermanos que las hayan reservado, en función de la antiguedad como miembro de la hermandad.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button onclick="window.location.href='{{URL::to('gestionhdad/insignias/asignacion-automatica')}}'" type="button" class="btn btn-sm btn-success" data-dismiss="modal">Asignar</button>
+
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+
 
             </div>
         </div>
