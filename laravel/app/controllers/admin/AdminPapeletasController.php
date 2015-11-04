@@ -1,6 +1,19 @@
 <?php
 
 use Illuminate\Filesystem\Filesystem;
+use PayPal\Rest\ApiContext;
+use PayPal\Auth\OAuthTokenCredential;
+use PayPal\Api\Amount;
+use PayPal\Api\Details;
+use PayPal\Api\Item;
+use PayPal\Api\ItemList;
+use PayPal\Api\Payer;
+use PayPal\Api\Payment;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\ExecutePayment;
+use PayPal\Api\PaymentExecution;
+use PayPal\Api\Transaction;
+
 
 class AdminPapeletasController extends BaseController{
 
@@ -11,6 +24,14 @@ class AdminPapeletasController extends BaseController{
 
     public function __construct(Papeleta $papeleta)
     {
+        $this->_api_context = new ApiContext(new OAuthTokenCredential($this->_ClientId, $this->_ClientSecret));
+        $this->_api_context->setConfig(array(
+            'mode' => 'sandbox',
+            'http.ConnectionTimeOut' => 30,
+            'log.LogEnabled' => true,
+            'log.FileName' => __DIR__.'/../PayPal.log',
+            'log.LogLevel' => 'FINE'
+        ));
         $this->papeleta = $papeleta;
     }
 
@@ -51,6 +72,8 @@ class AdminPapeletasController extends BaseController{
     {
         $fecha_inicio_papeletas = Confighdad::first()->fecha_inicio_papeletas;
         $fecha_fin_papeletas = Confighdad::first()->fecha_fin_papeletas;
+        $fecha_inicio_insignia = Confighdad::first()->fecha_inicio_insignias;
+        $fecha_fin_insignia = Confighdad::first()->fecha_fin_insignias;
         $hoy = date('Y-m-d');
         if($hoy >= $fecha_inicio_papeletas and $fecha_fin_papeletas >= $hoy){
             if(Auth::user()->hasRole('admin')){
@@ -62,9 +85,13 @@ class AdminPapeletasController extends BaseController{
 
                 $hermano = Hermano::where('user_id','=',Auth::user()->id)->first();
                 $papeleta = Papeleta::where('fecha_solicitud','>=',$fecha_inicio_papeletas)->where('fecha_solicitud','<=',$fecha_fin_papeletas)->where('hermano_id','=',$hermano->id)->first();
+                $insignia = DB::table('reservas_insignia')->where('estado','=','asignada')->where('fecha_solicitud','>=',$fecha_inicio_insignia)->where('fecha_solicitud','<=',$fecha_fin_insignia)->where('hermano_id','=',$hermano->id)->first();
+                if(isset($insignia)){
+                $insignia = Insignia::where('id','=',$insignia->insignia_id)->first();
+                }
                 if(!isset($papeleta)){
                     $papeleta = new Papeleta();
-                    return View::make('site/papeleta', compact('papeleta'));
+                    return View::make('site/papeleta', compact('papeleta','insignia'));
                 }else{
                     if($papeleta->tipo->descripcion == 'Cirio'){
                         $mensaje = ' portando cirio.';
@@ -80,6 +107,36 @@ class AdminPapeletasController extends BaseController{
                 }
 
             }
+        }else{
+            return Redirect::to('/gestionhdad/inicio')->with('error', 'No está permitido solicitar papelestas de sitio hasta el '.date('d-m-Y',strtotime($fecha_inicio_papeletas)));
+        }
+
+    }
+
+    public function papeletaCreateAjax()
+    {
+        $fecha_inicio_papeletas = Confighdad::first()->fecha_inicio_papeletas;
+        $fecha_fin_papeletas = Confighdad::first()->fecha_fin_papeletas;
+        $fecha_inicio_insignia = Confighdad::first()->fecha_inicio_insignias;
+        $fecha_fin_insignia = Confighdad::first()->fecha_fin_insignias;
+        $hoy = date('Y-m-d');
+        if($hoy >= $fecha_inicio_papeletas and $fecha_fin_papeletas >= $hoy){
+            if(Auth::user()->hasRole('admin')){
+                if(is_numeric(Input::get('hermano'))){
+                    $hermano = Hermano::where('id','=',Input::get('hermano'))->first();
+                    $insignia = DB::table('reservas_insignia')->where('estado','=','asignada')->where('fecha_solicitud','>=',$fecha_inicio_insignia)->where('fecha_solicitud','<=',$fecha_fin_insignia)->where('hermano_id','=',$hermano->id)->first();
+                    if(isset($insignia)){
+                        $insignia = Insignia::where('id','=',$insignia->insignia_id)->first();
+                    }
+                }
+                $hermanos = Hermano::where('activo','=',1)->get();
+                $papeleta = Papeleta::where('fecha_solicitud','>=',$fecha_inicio_papeletas)->where('fecha_solicitud','<=',$fecha_fin_papeletas)->where('hermano_id','=',$hermano->id)->first();
+                if(!isset($papeleta)) {
+                    $papeleta = new Papeleta();
+                }
+                return View::make('site/papeleta', compact('hermanos','papeleta','hermano','insignia'));
+            }
+
         }else{
             return Redirect::to('/gestionhdad/inicio')->with('error', 'No está permitido solicitar papelestas de sitio hasta el '.date('d-m-Y',strtotime($fecha_inicio_papeletas)));
         }
@@ -117,17 +174,33 @@ class AdminPapeletasController extends BaseController{
             // Create a new entrada post
             $fecha_inicio_papeletas = Confighdad::first()->fecha_inicio_papeletas;
             $fecha_fin_papeletas = Confighdad::first()->fecha_fin_papeletas;
-            $hermano = Hermano::where('user_id','=',Auth::user()->id)->first();
-            $papeleta = Papeleta::where('fecha_solicitud','>=',$fecha_inicio_papeletas)->where('fecha_solicitud','<=',$fecha_fin_papeletas)->where('hermano_id','=',$hermano->id)->first();
+            if(Auth::user()->hasRole('admin')){
+                $hermano = Hermano::where('user_id','=',Input::get('hermano'))->first();
+            }
+            else{
+                $hermano = Hermano::where('user_id','=',Auth::user()->id)->first();
+
+            }
+             $papeleta = Papeleta::where('fecha_solicitud','>=',$fecha_inicio_papeletas)->where('fecha_solicitud','<=',$fecha_fin_papeletas)->where('hermano_id','=',$hermano->id)->first();
             if(!isset($papeleta)){
                 $papeleta = new Papeleta();
             }
+            $papeleta->hermano_id         = Hermano::where('user_id','=',Auth::user()->id)->first()->id;
+            $papeleta->paso_id            = Input::get('paso');
+            $papeleta->tipo_id            = Input::get('tipos_papeleta');
 
+            $papeleta->fecha_solicitud    = date('Y-m-d');
+            $papeleta->observaciones      = Input::get('observaciones');
+            if(Input::get('simbolica') == "true"){
+                $papeleta->simbolica = true;
+            }
             if(is_numeric(Input::get('donativo')) and Input::get('donativo') != 0){
-                $papeleta->donativo           = Input::get('donativo');
+
+                $papeleta->donativo = Input::get('donativo');
                 $payer = new Payer();
                 $payer->setPaymentMethod("paypal");
-
+                $concepto = "Donativo realizado por ". $hermano->nombre." ".$hermano->apellidos;
+                $cuota = floatval(Input::get('donativo'));
                 $item1 = new Item();
                 $item1->setName('Donativo')
                     ->setDescription($concepto)
@@ -161,13 +234,13 @@ class AdminPapeletasController extends BaseController{
                 $transaction = new Transaction();
                 $transaction->setAmount($amount)
                     ->setItemList($itemList)
-                    ->setDescription("Pago cuota Hermano")
+                    ->setDescription("Donativo papeleta hermano")
                     ->setInvoiceNumber(uniqid());
 
 
                 $redirectUrls = new RedirectUrls();
-                $redirectUrls->setReturnUrl(URL::to('gestionhdad/hermano/crearRecibo'))
-                    ->setCancelUrl(URL::to('gestionhdad/misrecibos'));
+                $redirectUrls->setReturnUrl(URL::to('gestionhdad/hermano/guardarPapeleta'))
+                    ->setCancelUrl(URL::to('gestionhdad/papeleta'));
 
                 // ### Payment
                 // A Payment Resource; create one using
@@ -201,6 +274,7 @@ class AdminPapeletasController extends BaseController{
 
                 // add payment ID to session
                 Session::put('paypal_payment_id', $payment->getId());
+                Session::put('papeleta',$papeleta);
 
                 if(isset($redirect_url)) {
                     // redirect to paypal
@@ -210,20 +284,6 @@ class AdminPapeletasController extends BaseController{
                 return View::make('site/misrecibos')->with('error', 'Unknown error occurred');
 
             }
-
-            // Update the entrada post data
-            $papeleta->hermano_id         = Hermano::where('user_id','=',Auth::user()->id)->first()->id;
-            $papeleta->paso_id            = Input::get('paso');
-            $papeleta->tipo_id            = Input::get('tipos_papeleta');
-
-            $papeleta->fecha_solicitud    = date('Y-m-d');
-            $papeleta->observaciones      = Input::get('observaciones');
-            if(Input::get('simbolica') == "true"){
-                $papeleta->simbolica = true;
-            }
-
-
-
             // Was the entrada post created?
 
             if( $papeleta->save())
@@ -249,6 +309,51 @@ class AdminPapeletasController extends BaseController{
         // Form validation failed
 
         return Redirect::to('gestionhdad/papeleta')->withInput()->withErrors($validator);
+
+    }
+
+    public function guardarPapeleta()
+    {
+        // Get the payment ID before session clear
+        $payment_id = Session::get('paypal_payment_id');
+        $papeleta = Session::get('papeleta');
+        // clear the session payment ID
+        Session::forget('paypal_payment_id');
+        Session::forget('papeleta');
+
+        $payerId=Input::get('PayerID');
+        $token=Input::get('token');
+        if (empty($payerId) || empty($token)) {
+            return Redirect::to('/gestionhdad/inicio')
+                ->with('error', 'Ha ocurrido un problema al pagar, intentelo más tarde.');
+        }
+
+        $payment = Payment::get($payment_id, $this->_api_context);
+
+        // PaymentExecution object includes information necessary
+        // to execute a PayPal account payment.
+        // The payer_id is added to the request query parameters
+        // when the user is redirected from paypal back to your site
+        $execution = new PaymentExecution();
+        $execution->setPayerId(Input::get('PayerID'));
+
+        //Execute the payment
+        $result = $payment->execute($execution, $this->_api_context);
+
+        //echo '<pre>';print_r($result);echo '</pre>';exit; // DEBUG RESULT, remove it later
+
+        if ($result->getState() == 'approved') { // payment made
+
+
+
+            $papeleta->save();
+
+            return Redirect::to('/gestionhdad/inicio')
+                ->with('success', 'Papeleta reservada correctamente');
+
+
+        }
+        return Redirect::to('/gestionhdad/inicio')->with('error', 'Ha ocurrido un problema al pagar, intentelo más tarde.');
 
     }
 

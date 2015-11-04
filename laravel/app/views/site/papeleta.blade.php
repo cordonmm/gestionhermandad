@@ -23,6 +23,29 @@
 
                                 <div class="form quick-post">
                                     <!-- Quick setting form (not working)-->
+                                    <form  class="form-horizontal" id="formHermanos" role="form" method="post" action="{{URL::to('gestionhdad/papeletajax/')}}" >
+
+                                        @if(Auth::user()->hasRole('admin'))
+                                            {{--*/ $num_insignias = 4 /*--}}
+                                            <div class="form-group">
+                                                <label class="col-lg-2 control-label">Listado de Hermanos</label>
+                                                <div class="col-lg-10">
+                                                    <select name="hermano" style="width: 100%;" class="js-hermanos" required  onchange="$('#formHermanos').submit();">
+                                                        <option>Seleccione un hermano</option>
+                                                        @foreach($hermanos as $hermanoAux)
+                                                            @if(isset($hermano))
+                                                            <option name="cantidad" value="{{$hermanoAux->id}}" {{$hermano->id == $hermanoAux->id ? 'selected="selected"' : null}} id="{{$hermanoAux->id}}">{{$hermanoAux->nombre}} {{$hermanoAux->apellidos}}</option>
+                                                            @else
+                                                                <option name="cantidad" value="{{$hermanoAux->id}}" id="{{$hermanoAux->id}}">{{$hermanoAux->nombre}} {{$hermanoAux->apellidos}}</option>
+
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    </form>
+
                                     <form class="form-horizontal" role="form" method="post" action="@if (isset($papeleta)){{ URL::to('gestionhdad/papeleta/') }}@endif" autocomplete="on">
 
                                         <!-- description -->
@@ -39,12 +62,17 @@
                                           </div>
                                         </div>   -->
                                         <!-- Registraion -->
+
+                                        <input type="hidden" id="hermano" name="hermano" value="{{isset($hermano) ? $hermano->id : null}}">
+
+
+
                                         <div class="form-group">
                                             <label class="control-label col-lg-2">Opcional</label>
-                                            <div class="col-lg-7">
+                                            <div class="col-lg-10">
                                                 <div class="checkbox">
                                                     <label>
-                                                        <input type="checkbox" id="simbolica" name="simbolica" value="true"> Papeleta de sitio simbólica
+                                                        <input type="checkbox" id="simbolica" name="simbolica" onclick="optional();" value="true"> Papeleta de sitio simbólica
                                                     </label>
                                                 </div>
                                             </div>
@@ -60,12 +88,12 @@
                                                         @if($papeleta->id != 0)
 
                                                             @if($paso->id == $papeleta->paso->id)
-                                                                <label><input type="radio" name="paso" checked="checked"  value="{{$paso->id}}"> {{$paso->descripcion}}</label>
+                                                                <label><input type="radio" id="paso" name="paso" checked="checked"  value="{{$paso->id}}"> {{$paso->descripcion}}</label>
                                                             @else
-                                                                <label><input type="radio" name="paso"  value="{{$paso->id}}"> {{$paso->descripcion}}</label>
+                                                                <label><input type="radio" id="paso"name="paso"  value="{{$paso->id}}"> {{$paso->descripcion}}</label>
                                                             @endif
                                                         @else
-                                                            <label><input type="radio" name="paso"  value="{{$paso->id}}"> {{$paso->descripcion}}</label>
+                                                            <label><input type="radio" id="paso" name="paso"  value="{{$paso->id}}"> {{$paso->descripcion}}</label>
                                                         @endif
                                                     </div>
                                                 @endforeach
@@ -77,7 +105,11 @@
                                             <label class="control-label col-lg-2">Portando </label>
                                             <div class="col-lg-4">
 
-                                                <select class="form-control" id="tipos_papeleta" name="tipos_papeleta">
+                                                <select class="form-control" id="tipos_papeleta" name="tipos_papeleta" {{isset($insignia) ? 'disable  = "disable"': null}}>
+                                                    @if(isset($insignia))
+
+                                                        <option selected="selected" value='{{DB::table('tipos_papeleta')->where('descripcion','=','insignia')->first()->id}}'>{{$insignia->paso->descripcion}} - {{$insignia->descripcion}}</option>
+                                                    @else
                                                     @foreach(DB::table('tipos_papeleta')->orderby('id','asc')->get() as $tipo)
                                                         @if($papeleta->id != 0)
                                                             @if($tipo->id == $papeleta->tipo->id)
@@ -89,6 +121,7 @@
                                                             <option value='{{$tipo->id}}'>{{$tipo->descripcion}}</option>
                                                         @endif
                                                     @endforeach
+                                                    @endif
                                                 </select>
 
                                             </div>
@@ -96,7 +129,7 @@
 
                                         <!-- Name -->
                                         <div class="form-group">
-                                            <label class="control-label col-md-2" for="donativo"> Donativo</i></label>
+                                            <label class="control-label col-md-2" for="donativo"> Donativo</label>
                                             <div class="col-md-4">
                                                 <input min="0" type="number" class="form-control" id="donativo" name="donativo" placeholder="Introduzca un donativo si lo desea">
                                             </div>
@@ -162,4 +195,32 @@
 
         </div>
     </div>
+@stop
+@section('scripts')
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+    <script type="text/javascript">
+
+        $(".js-hermanos").select2({
+            placeholder: "Selecciona un hermano"
+        });
+
+        function optional(){
+
+            if($('#simbolica').prop('checked')){
+
+                $("input:radio").each(function() {
+                    $( this ).prop('disabled', true);
+                });
+
+                $("#tipos_papeleta").prop('disabled', true);
+            }else{
+                $("input:radio").each(function() {
+                    $( this ).prop('disabled', false);
+                });
+                $("#tipos_papeleta").prop('disabled', false);
+            }
+
+        }
+    </script>
 @stop

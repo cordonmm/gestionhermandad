@@ -58,9 +58,7 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
         return View::make('site/admin/reserva-insignias');
     });
 
-    Route::get('donativo', function () {
-        return View::make('site/donativo');
-    });
+
     Route::get('pagarRecibo', 'AdminRecibosController@getPayRecibo');
 
     Route::get('hermano/crearRecibo', 'AdminRecibosController@crearRecibo');
@@ -121,6 +119,7 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
         return View::make('site/cofradia');
     });
     //PAPELETAS
+    Route::post('papeletajax', 'AdminPapeletasController@papeletaCreateAjax');
     Route::get('papeleta', 'AdminPapeletasController@papeletaCreate');
     Route::post('papeleta', 'AdminPapeletasController@postCreate');
     Route::get('listado-papeletas', function () {
@@ -140,6 +139,15 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
     Route::get('{papeleta_id}/cancelar-papeleta','AdminPapeletasController@cancelarPapeleta');
     Route::get('{papeleta_id}/recogida','AdminPapeletasController@marcarPapeletaRecogida');
     Route::get('{papeleta_id}/norecogida','AdminPapeletasController@desmarcarPapeletaRecogida');
+    Route::get('hermano/guardarPapeleta','AdminPapeletasController@guardarPapeleta');
+
+    //DONATIVOS
+    Route::get('donativo', function () {
+        return View::make('site/donativo');
+    });
+    Route::post('donativo/create','DonativoController@dontativoCreate');
+    Route::get('donativo/pagarDonativo','DonativoController@pagarDonativo');
+
 
     //CONFIGURACION
     Route::post('configuracion/editar','AdminConfiguracionController@configuracionEdit');

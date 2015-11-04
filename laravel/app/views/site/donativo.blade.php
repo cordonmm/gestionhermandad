@@ -55,14 +55,14 @@
 
                                 <br />
                                 <!-- Form starts.  -->
-                                <form class="form-horizontal" method="post" action="{{ URL::to('gestionhdad/insignias/crear') }}" autocomplete="off">
+                                <form class="form-horizontal" method="post" action="{{ URL::to('gestionhdad/donativo/create') }}" autocomplete="off">
                                     <!-- CSRF Token -->
                                     <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
                                     <!-- ./ csrf token -->
 
                                     <div class="form-group">
                                         <label for="amount" class="col-lg-2 control-label">Cantidad</label>
-                                        <input name="cantidad" type="text" id="amount" readonly style="border:0; color:#D31B1B; font-weight:bold; font-size: 20px;">
+                                        <input name="cantidad" type="text" id="amount" readonly style="border:0; color:#D31B1B; font-weight:bold; font-size: 20px; background-color: transparent;">
                                         <div class="col-lg-10">
                                             <div id="slider-range-min"></div>
                                         </div>
