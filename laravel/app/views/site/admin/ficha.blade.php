@@ -172,7 +172,7 @@
                                         @if($hermano->foto != '')
                                             <label class="col-lg-2 control-label">Foto actual</label>
                                             <div class="col-lg-3">
-                                                <img class="img-responsive" alt="Foto" src="{{asset($hermano->foto)}}" />
+                                                <img class="img-circle profile-image" style="max-width: 200px" alt="Foto" src="{{asset($hermano->foto)}}" />
                                             </div>
                                         @endif
                                     </div>

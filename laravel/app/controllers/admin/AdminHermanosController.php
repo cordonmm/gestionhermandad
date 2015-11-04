@@ -183,6 +183,7 @@ class AdminHermanosController extends BaseController{
                 $hermano->sexo              = Input::get('sexo');
                 $hermano->fecha_nacimiento  = Input::get('fecha_nacimiento');
                 $hermano->fecha_alta        = date('Y-m-d');
+                $hermano->pagado_hasta      = date('Y-m-d');
                 $hermano->ccc               = Input::get('ccc');
                 $hermano->tlf_fijo          = Input::get('tlf_fijo');
                 $hermano->tlf_movil         = Input::get('tlf_movil');

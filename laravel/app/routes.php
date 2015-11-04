@@ -55,6 +55,18 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
         return View::make('site/admin/configuracion');
     });
     Route::get('reserva-insignias', function () {
+
+        $fecha_inicio_insignias = Confighdad::first()->fecha_inicio_insignias;
+        $fecha_fin_insignias = Confighdad::first()->fecha_fin_insignias;
+        $hoy = date('Y-m-d');
+
+        if($hoy < $fecha_inicio_insignias) {
+            if (Auth::user()->hasRole('user'))
+            {
+                return Redirect::to('/gestionhdad/inicio')->with('info','El plazo para reservar insignias estará disponible a partir del '.date('d/m/Y', strtotime($fecha_inicio_insignias)));
+            }
+        }
+
         return View::make('site/admin/reserva-insignias');
     });
 
@@ -77,10 +89,11 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
     Route::get('hermanos/{hermano_id}/alta','AdminHermanosController@altaHermano');
 
     //INSIGNIAS
-    Route::get('insignia-reservada/{ri_id}/asignar','AdminInsigniasController@asignarReservaInsignia');
+    Route::get('insignia-reservada/{ri_id}/{i_id}/{h_id}/asignar','AdminInsigniasController@asignarReservaInsignia');
     Route::get('insignia-reservada/{ri_id}/desasignar','AdminInsigniasController@desasignarReservaInsignia');
     Route::get('insignia-reservada/{ri_id}/cancelar','AdminInsigniasController@cancelarReservaInsignia');
     Route::get('insignias/{insignia}/ficha','AdminInsigniasController@getFicha');
+    Route::get('insignias/asignacion-automatica','AdminInsigniasController@asignacionAutomatica');
     Route::post('insignias/{insignia}/editar','AdminInsigniasController@insigniaEdit');
     Route::post('insignias/crear','AdminInsigniasController@insigniaCreate');
     Route::post('insignias/reservar','AdminInsigniasController@insigniaReservas');
@@ -90,7 +103,8 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
         $fin_anyo_ant = $anyo_ant.'-12-31';
 
         $insignias = DB::table('reservas_insignia')
-            ->select('hermanos.nombre', 'hermanos.apellidos', 'hermanos.num_hermano', 'hermanos.fecha_alta', 'insignias.descripcion', 'reservas_insignia.fecha_solicitud', 'reservas_insignia.prioridad', 'reservas_insignia.estado', 'reservas_insignia.id as ri_id')
+            ->select('hermanos.nombre', 'hermanos.apellidos', 'hermanos.num_hermano', 'hermanos.fecha_alta', 'hermanos.id as h_id', 'insignias.descripcion',
+                'reservas_insignia.fecha_solicitud', 'reservas_insignia.prioridad', 'reservas_insignia.estado', 'reservas_insignia.id as ri_id', 'reservas_insignia.insignia_id as i_id')
             ->join('hermanos', 'reservas_insignia.hermano_id', '=', 'hermanos.id')
             ->join('insignias', 'reservas_insignia.insignia_id', '=', 'insignias.id')
             ->where('fecha_solicitud','>', $fin_anyo_ant)
