@@ -6,8 +6,6 @@
 
             @include('notifications')
 
-
-
             <div class="row">
                 <!-- google maps widget -->
                 <div class="col-md-12">
@@ -24,7 +22,7 @@
                             <div id="multi" style="">
                                 <div class="row top-buffer">
                                     <!-- google maps widget -->
-                                    <div style="max-width: 350px; margin: 25px;" class="col-md-3">
+                                    <div style="max-width: 340px; margin: 5% 1% 5% 5%;" class="col-md-3">
 
                                         <div style="border: solid 1px #7F7F7F" class="panel-danger center">
                                             <div class="panel-heading tile__name">Tramo 1
@@ -93,7 +91,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div style="max-width: 350px; margin: 25px;" class="col-md-3">
+                                    <div style="max-width: 340px; margin: 5% 1% 5% 2%;" class="col-md-3">
                                         <div style="border: solid 1px #7F7F7F" class="panel-danger center">
                                             <div class="panel-heading tile__name">Tramo 2
 
@@ -159,7 +157,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div style="max-width: 350px; margin: 25px;" class="col-md-3">
+                                    <div style="max-width: 340px; margin: 5% 1% 5% 2%;" class="col-md-3">
                                         <div style="border: solid 1px #7F7F7F" class="panel-danger center">
                                             <div class="panel-heading tile__name">Tramo 3
 
@@ -225,7 +223,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div style="max-width: 350px; margin: 25px;" class="col-md-3">
+                                    <div style="max-width: 340px; margin: 5% 5% 5% 1%;" class="col-md-3">
                                         <div style="border: solid 1px #7F7F7F" class="panel-danger center">
                                             <div class="panel-heading tile__name">Tramo 4
 
@@ -307,7 +305,7 @@
 @stop
 @section('styles')
     <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
-    <link href="{{ asset('template/js/st/app.css')}}" rel="stylesheet" />
+    <!--<link href="{{ asset('template/js/st/app.css')}}" rel="stylesheet" />-->
 @stop
 @section('scripts')
     <script src="{{ asset('template/js/Sortable.js')}}"></script>

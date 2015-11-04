@@ -62,7 +62,6 @@ class AdminHermanosController extends BaseController{
             $hermano->ccc               = Input::get('ccc');
             $hermano->tlf_fijo          = Input::get('tlf_fijo');
             $hermano->tlf_movil         = Input::get('tlf_movil');
-            $hermano->foto              = $ruta;
             $user->email                = Input::get('email');
             $hermano->direccion         = Input::get('direccion');
             $hermano->poblacion         = Input::get('poblacion');
@@ -72,6 +71,8 @@ class AdminHermanosController extends BaseController{
             $hermano->observaciones     = Input::get('observaciones');
             $hermano->tipo_pago         = Input::get('tipo_pago');
 
+            if($hermano->foto == '')
+                $hermano->foto = $ruta;
 
             // Was the entrada post updated?
             DB::beginTransaction();
