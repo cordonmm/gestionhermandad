@@ -57,6 +57,7 @@ class DonativoController extends BaseController{
             $donativo->cantidad            = substr(Input::get('cantidad'),0,-4);
             $donativo->observaciones       = Input::get('observaciones');
             $donativo->hermano_id          = $hermano->id;
+            $donativo->fecha_donacion      = date('Y-m-d');
 
             $concepto = "Donativo de parte de ".$hermano->nombre." ".$hermano->apellidos;
             $cuota = $donativo->cantidad;
@@ -149,7 +150,7 @@ class DonativoController extends BaseController{
                 return Redirect::away($redirect_url);
             }
 
-            return View::make('site/donativo')->with('error', 'Error desconocido, perdone las molestias.');
+            return  Redirect::to('gestionhdad/donativo')->with('error', 'Error desconocido, perdone las molestias.');
 
 
             // Was the entrada post created?
@@ -198,12 +199,12 @@ class DonativoController extends BaseController{
 
            $donativo->save();
 
-            return View::make('site/donativo')
+            return  Redirect::to('gestionhdad/donativo')
                 ->with('success', 'Donativo realizado correctamente');
 
 
         }
-        return View::make('site/donativo')->with('error', 'Error en el pago');
+        return  Redirect::to('gestionhdad/donativo')->with('error', 'Error en el pago');
 
     }
 

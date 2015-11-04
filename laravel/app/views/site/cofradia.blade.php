@@ -305,16 +305,22 @@
     </div>
     <input type="button" onclick="alert(arrayAux[0].toArray());" value="test"/>
 @stop
-@section('scripts')
-    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+@section('styles')
     <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+    <link href="{{ asset('template/js/st/app.css')}}" rel="stylesheet" />
+@stop
+@section('scripts')
+    <script src="{{ asset('template/js/Sortable.js')}}"></script>
+    <script src="{{ asset('template/js/st/app.js')}}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+
     <script type="text/javascript">
         $(".js-example-basic-multiple").select2({
             placeholder: "Selecciona 4 insignias por orden de prioridad",
             maximumSelectionLength: "1"
         });
         $(".js-hermanos").select2({
-            placeholder: "Selecciona un diputado",
+            placeholder: "Selecciona un diputado"
         });
     </script>
 @stop
