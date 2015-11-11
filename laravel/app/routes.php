@@ -165,12 +165,16 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
 
     Route::get('generar', function()
     {
-        $html = '<html><body>';
-        $html.= '<p style="color:red">Generando un sencillo pdf ';
-        $html.= 'de forma realmente sencilla.</p>';
-        $html.= '</body></html>';
+
+        $html = View::make('site/admin/pdf-cofradia');
+
+
+        //echo $html;die();
         return PDF::load($html, 'A4', 'portrait')->show();
+        //return $html;
     });
+
+
     //CONFIGURACION
     Route::post('configuracion/editar','AdminConfiguracionController@configuracionEdit');
     //

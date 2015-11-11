@@ -215,7 +215,7 @@
                 @endif
 
                 @if(Auth::user()->hasRole('admin'))
-                        <li class="has_sub"><a href="#"><i class="fa fa-file-o"></i> Hermanos  <span class="pull-right"><i class="fa fa-chevron-right"></i></span></a>
+                        <li class="has_sub"><a href="#"><i class="fa fa-user"></i> Hermanos  <span class="pull-right"><i class="fa fa-chevron-right"></i></span></a>
                             <ul>
                                 <li><a href="{{URL::to('gestionhdad/nuevo-hermano')}}"><i class="fa fa-file-o"></i> Nuevo Hermano</a></li>
                                 <li><a href="{{URL::to('gestionhdad/listado-hermanos')}}"><i class="fa fa-file-o"></i> Listado Hermanos</a></li>
@@ -244,6 +244,17 @@
                                     <li><a href="{{URL::to('gestionhdad/papeleta')}}"><i class="fa fa-file-o"></i> Nueva</a></li>
                                 @endif
                                 <li><a href="{{URL::to('gestionhdad/listado-papeletas')}}"><i class="fa fa-table"></i> Solicitadas</a></li>
+
+                            </ul>
+                        </li>
+
+                        <li class="has_sub"><a href="#"><i class="fa fa-file-pdf-o"></i> Listados  <span class="pull-right"><i class="fa fa-chevron-right"></i></span></a>
+                            <ul>
+
+
+                                <li><a href="{{URL::to('gestionhdad/papeleta')}}"><i class="fa fa-file-pdf-o"></i> Listado Hermanos</a></li>
+                                <li><a target="_blank" href="{{asset('template/listados/listado-tramos.pdf')}}"><i class="fa fa-file-pdf-o"></i> Listado Cofradía</a></li>
+                                <li><a href="{{URL::to('gestionhdad/listado-papeletas')}}"><i class="fa fa-file-pdf-o"></i> Listado Inisginas Reservadas</a></li>
 
                             </ul>
                         </li>
