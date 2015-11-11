@@ -163,6 +163,14 @@ Route::group(array('prefix' => 'gestionhdad', 'after' => 'auth'), function() {
     Route::get('donativo/pagarDonativo','DonativoController@pagarDonativo');
 
 
+    Route::get('generar', function()
+    {
+        $html = '<html><body>';
+        $html.= '<p style="color:red">Generando un sencillo pdf ';
+        $html.= 'de forma realmente sencilla.</p>';
+        $html.= '</body></html>';
+        return PDF::load($html, 'A4', 'portrait')->show();
+    });
     //CONFIGURACION
     Route::post('configuracion/editar','AdminConfiguracionController@configuracionEdit');
     //

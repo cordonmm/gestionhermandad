@@ -6,8 +6,9 @@
 	"type": "project",
 	"require": {
 		"laravel/framework": "4.2.*",
-        "paypal/rest-api-sdk-php": "*",
-		"barryvdh/laravel-ide-helper": "1.11.x-dev",
+        "paypal/rest-api-sdk-php": "v1.6.1",
+        "barryvdh/laravel-ide-helper": "1.11.x-dev",
+        "thujohn/pdf": "1.0.6",
 	  	"zizaco/confide": "~4.3@dev",
 	  	"zizaco/entrust": "1.2.*@dev"
 	},

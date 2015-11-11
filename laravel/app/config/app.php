@@ -52,7 +52,7 @@ return array(
 	|
 	*/
 
-	'locale' => 'en',
+	'locale' => 'es',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ return array(
 	|
 	*/
 
-	'fallback_locale' => 'en',
+	'fallback_locale' => 'es_ES',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -123,6 +123,8 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Zizaco\Confide\ServiceProvider',
 		'Zizaco\Entrust\EntrustServiceProvider',
+        'Thujohn\Pdf\PdfServiceProvider',
+
 
 
 	),
@@ -193,6 +195,8 @@ return array(
 		'View'              => 'Illuminate\Support\Facades\View',
 		'Confide'    		=> 'Zizaco\Confide\Facade',
 		'Entrust'    		=> 'Zizaco\Entrust\EntrustFacade',
+        'PDF'               => 'Thujohn\Pdf\PdfFacade',
+
 
 
 	),

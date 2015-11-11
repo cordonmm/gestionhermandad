@@ -212,10 +212,6 @@
                 @if(Auth::user()->hasRole('user'))
                     <li><a href="{{URL::to('gestionhdad/misdatos')}}"><i class="fa fa-file-o"></i> Mis datos</a></li>
                     <li><a href="{{URL::to('gestionhdad/misrecibos')}}"><i class="fa fa-table"></i> Mis recibos</a></li>
-
-
-
-                    <li><a href="{{URL::to('gestionhdad/papeleta')}}"><i class="fa fa-tasks"></i> Papeleta de Sitio</a></li>
                 @endif
 
                 @if(Auth::user()->hasRole('admin'))
