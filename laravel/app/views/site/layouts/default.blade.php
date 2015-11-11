@@ -232,7 +232,7 @@
                                 @if($hoy >= $configuracion->fecha_inicio_insignias && $hoy <= $configuracion->fecha_fin_insignias)
                                     <li><a href="{{URL::to('gestionhdad/reserva-insignias')}}"><i class="fa fa-file-o"></i> Reserva de Insignias</a></li>
                                 @endif
-                                    <li><a href="{{URL::to('gestionhdad/misinsignias')}}"><i class="fa fa-cube"></i> Mis Insignias Reservadas</a></li>
+                                    <!--<li><a href="{{URL::to('gestionhdad/misinsignias')}}"><i class="fa fa-cube"></i> Mis Insignias Reservadas</a></li>-->
                                 @if(Auth::user()->hasRole('admin'))
                                     <li><a href="{{URL::to('gestionhdad/listado-insignias-reservadas')}}"><i class="fa fa-cube"></i>Insignias Reservadas</a></li>
                                     <li><a href="{{URL::to('gestionhdad/nueva-insignia')}}"><i class="fa fa-file-o"></i> Nueva Insignia</a></li>

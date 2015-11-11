@@ -22,7 +22,7 @@
                             <div id="multi" style="">
                                 <div class="row top-buffer">
                                     <!-- google maps widget -->
-                                    <div style="max-width: 340px; margin: 5% 1% 5% 5%;" class="col-md-3">
+                                    <div style="max-width: 340px; margin-top: 2%; margin-left: 3%;" class="col-md-3">
 
                                         <div style="border: solid 1px #7F7F7F" class="panel-danger center">
                                             <div class="panel-heading tile__name">Tramo 1
@@ -91,7 +91,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div style="max-width: 340px; margin: 5% 1% 5% 2%;" class="col-md-3">
+                                    <div style="max-width: 340px; margin-top: 2%; margin-left: 3%;" class="col-md-3">
                                         <div style="border: solid 1px #7F7F7F" class="panel-danger center">
                                             <div class="panel-heading tile__name">Tramo 2
 
@@ -157,7 +157,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div style="max-width: 340px; margin: 5% 1% 5% 2%;" class="col-md-3">
+                                    <div style="max-width: 340px; margin-top: 2%; margin-left: 3%;" class="col-md-3">
                                         <div style="border: solid 1px #7F7F7F" class="panel-danger center">
                                             <div class="panel-heading tile__name">Tramo 3
 
@@ -223,7 +223,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div style="max-width: 340px; margin: 5% 5% 5% 1%;" class="col-md-3">
+                                    <div style="max-width: 340px; margin-top: 2%; margin-left: 3%;" class="col-md-3">
                                         <div style="border: solid 1px #7F7F7F" class="panel-danger center">
                                             <div class="panel-heading tile__name">Tramo 4
 

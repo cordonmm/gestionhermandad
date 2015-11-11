@@ -80,6 +80,7 @@ Entrust::routeNeedsRole( 'gestionhdad/nueva-insignia', array('admin'), Redirect:
 Entrust::routeNeedsRole( 'gestionhdad/listado-insignias', array('admin'), Redirect::to('gestionhdad'),false );
 Entrust::routeNeedsRole( 'gestionhdad/listado-papeletas', array('admin'), Redirect::to('gestionhdad'),false );
 Entrust::routeNeedsRole( 'gestionhdad/configuracion', array('admin'), Redirect::to('gestionhdad'),false );
+Entrust::routeNeedsRole( 'gestionhdad/cofradia', array('admin'), Redirect::to('gestionhdad'),false );
 
 
 
